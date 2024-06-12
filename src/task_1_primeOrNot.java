@@ -3,6 +3,10 @@ import java.util.Scanner;
 public class task_1_primeOrNot {
     static String checkPrime(int n){
         int c = 0;
+        if(n==1 || n==2){
+            return "true";
+        }
+
         for(int i=1 ; i<(n/2) ; i++){
             if(n%i == 0){
                 c+=1;
