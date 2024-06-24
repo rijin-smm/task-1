@@ -1,45 +1,43 @@
 package com.Task_4.studentManagement.Service;
 
 import com.Task_4.studentManagement.Model.Student;
+import com.Task_4.studentManagement.Repository.StudentRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class studentService {
 
+    @Autowired
+    private StudentRepo sr;
     private List<Student> students = new ArrayList<>();
 
     public List <Student> getAllStudent(){
-        return students;
+        return sr.findAll();
     }
-    public void addStudent(Student student){
-        students.add(student);
+    public void addStudent(Student newStudent){
+        sr.save(newStudent);
 
     }
 
-    public void updateStudent(Student student,int roll_no) {
-        for(int i =0 ; i<students.size() ; i++){
-            Student s = students.get(i);
-            if (s.getRoll_no()==roll_no){
-                students.set(i, student);
-                return;
-            }
-        }
+    public void updateStudent(Student updatedStudent,int roll_no) {
+        sr.findById(roll_no).map(student -> {
+            student.setRoll_no(updatedStudent.getRoll_no());
+            student.setStudent_name(updatedStudent.getStudent_name());
+            student.setRank(updatedStudent.getRank());
+            return sr.save(student);
+        }).orElseThrow(() -> new RuntimeException("Employee not found with id " + roll_no));
     }
 
     public void deleteStudent(int roll_no) {
-        students.removeIf(t -> t.getRoll_no()==roll_no);
+        sr.deleteById(roll_no);
     }
 
-    public List<Student> top3Student() {
-        return students.stream()
-                .sorted(Comparator.comparing(Student::getRank))
-                .limit(3)
-                .collect(Collectors.toList());
+    public List<Student> getTop3Student() {
+        return sr.findTop3ByOrderByRankAsc();
 
     }
 

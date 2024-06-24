@@ -1,6 +1,11 @@
 package com.Task_4.studentManagement.Model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "student")
 public class Student {
+    @Id
     private int roll_no;
     private String student_name;
     private String rank;

@@ -13,6 +13,7 @@ public class studentController {
 
 
 
+
     @PostMapping(path = "/students")
     public void addStudent(@RequestBody Student student){
         ss.addStudent(student);
@@ -39,8 +40,8 @@ public class studentController {
     }
 
     @GetMapping(path = "/students/top3")
-    public List<Student> top3Student(){
-        return ss.top3Student();
+    public List<Student> getTop3Student(){
+        return ss.getTop3Student();
 
     }
 
