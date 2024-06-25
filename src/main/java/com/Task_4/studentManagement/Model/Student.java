@@ -9,15 +9,27 @@ public class Student {
     private int roll_no;
     private String student_name;
     private String rank;
+    private String studentClass;
+
+
 
     public Student() {
     }
 
-    public Student(int roll_no, String student_name, String rank) {
+    public Student(int roll_no, String student_name, String rank, String studentClass) {
         super();
         this.roll_no = roll_no;
         this.student_name = student_name;
         this.rank = rank;
+        this.studentClass = studentClass;
+    }
+
+    public String getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(String studentClass) {
+        this.studentClass = studentClass;
     }
 
     public int getRoll_no() {
