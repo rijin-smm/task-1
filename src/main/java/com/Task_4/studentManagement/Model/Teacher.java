@@ -8,16 +8,17 @@ public class Teacher {
     @Id
     private String teacher_id;
     private String teacher_name;
-    private String teacher_subject;
+    private String teacherSubject;
+
 
     public Teacher() {
     }
 
-    public Teacher(String teacher_id, String teacher_name, String teacher_subject) {
+    public Teacher(String teacher_id, String teacher_name, String teacherSubject) {
         super();
         this.teacher_id = teacher_id;
         this.teacher_name = teacher_name;
-        this.teacher_subject = teacher_subject;
+        this.teacherSubject = teacherSubject;
     }
 
 
@@ -37,11 +38,11 @@ public class Teacher {
         this.teacher_name = teacher_name;
     }
 
-    public String getTeacher_subject() {
-        return teacher_subject;
+    public String getTeacherSubject() {
+        return teacherSubject;
     }
 
-    public void setTeacher_subject(String teacher_subject) {
-        this.teacher_subject = teacher_subject;
+    public void setTeacherSubject(String teacherSubject) {
+        this.teacherSubject = teacherSubject;
     }
 }

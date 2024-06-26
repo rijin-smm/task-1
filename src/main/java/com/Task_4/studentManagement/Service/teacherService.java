@@ -15,7 +15,7 @@ public class teacherService {
     private teacherRepo tr;
     private List<Teacher> teachers = new ArrayList<>();
 
-    public List<Teacher> getAllStudent() {
+    public List<Teacher> getAllTeacher() {
         return tr.findAll();
     }
 
@@ -31,12 +31,12 @@ public class teacherService {
         tr.findById(teacher_id).map(teacher -> {
             teacher.setTeacher_id(updatedTeacher.getTeacher_id());
             teacher.setTeacher_name(updatedTeacher.getTeacher_name());
-            teacher.setTeacher_subject(updatedTeacher.getTeacher_subject());
+            teacher.setTeacherSubject(updatedTeacher.getTeacherSubject());
             return tr.save(teacher);
         }).orElseThrow(() -> new RuntimeException("Teacher not found with id " + teacher_id));
     }
 
-    public List<Teacher> getTeacherBySubjectName(String subject_name) {
-        return tr.findByTeacher_subject(subject_name);
+    public List<Teacher> getTeacherBySubjectName(String teacherSubject) {
+        return tr.findByTeacherSubject(teacherSubject);
     }
 }

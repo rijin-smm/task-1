@@ -45,6 +45,17 @@ public class studentController {
 
     }
 
+    @GetMapping(path = "/students/{studentName}")
+    public List<Student> getStudentByName(@PathVariable String studentName){
+        return ss.getStudentByname(studentName);
+
+    }
+
+    @GetMapping("/students/firstRanked")
+    public List<Student> getStudentsWithFirstRank() {
+        return ss.getStudentsWithFirstRank();
+    }
+
 
 //    @GetMapping(path = "/students/{roll_no}")
 //    public Student>  getStudent(@PathVariable int roll_no){

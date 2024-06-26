@@ -20,8 +20,8 @@ public class studentClassController {
     }
 
     @PostMapping(path = "/studentClass")
-    public void createNewStudentClass(@RequestBody StudentClass studentClass){
-        stud_ser.createNewStudentClass(studentClass);
+    public void createNewStudentClass(@RequestBody StudentClass newStudentClass){
+        stud_ser.createNewStudentClass(newStudentClass);
     }
 
     @DeleteMapping(path = "/studentClass/{student_class_id}")

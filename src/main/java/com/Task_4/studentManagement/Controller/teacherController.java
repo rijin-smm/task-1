@@ -2,6 +2,7 @@ package com.Task_4.studentManagement.Controller;
 
 import com.Task_4.studentManagement.Model.Teacher;
 import com.Task_4.studentManagement.Service.teacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,11 +10,12 @@ import java.util.List;
 @RestController
 public class teacherController {
 
+    @Autowired
     private teacherService ts;
 
     @GetMapping(path = "/teachers")
     public List<Teacher> getAllTeacher(){
-        return ts.getAllStudent();
+        return ts.getAllTeacher();
     }
 
     @PostMapping(path = "/teachers")

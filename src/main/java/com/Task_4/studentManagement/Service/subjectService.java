@@ -24,8 +24,8 @@ public class subjectService {
         subj_rep.save(newSubject);
     }
 
-    public void deleteSubject(String subject_id) {
-        subj_rep.deleteById(subject_id);
+    public void deleteSubject(String subjectId) {
+        subj_rep.deleteById(subjectId);
     }
 
 //    public void updateSubject(Subject updatedSubject, String subject_id) {
@@ -37,9 +37,10 @@ public class subjectService {
 //
 //        }
 
-    public Subject updateSubject(@org.jetbrains.annotations.NotNull Subject subjectDetails, String id ) {
+    public Subject updateSubject(Subject subjectDetails, String id ) {
         Subject subject = subj_rep.findById(id).orElseThrow();
-        subject.setSubject_name(subjectDetails.getSubject_name());
+        subject.setId(subjectDetails.getId());
+        subject.setSubjectName(subjectDetails.getSubjectName());
         return subj_rep.save(subject);
     }
     }

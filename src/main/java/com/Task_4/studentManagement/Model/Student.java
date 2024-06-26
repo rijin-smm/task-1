@@ -6,46 +6,47 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "student")
 public class Student {
     @Id
-    private int roll_no;
-    private String student_name;
+    private String studentId;
+    private int rollNo;
+    private String studentName;
     private String rank;
     private String studentClass;
-
 
 
     public Student() {
     }
 
-    public Student(int roll_no, String student_name, String rank, String studentClass) {
+    public Student(String studentId, int rollNo, String studentName, String rank, String studentClass) {
         super();
-        this.roll_no = roll_no;
-        this.student_name = student_name;
+        this.studentId = studentId;
+        this.rollNo = rollNo;
+        this.studentName = studentName;
         this.rank = rank;
         this.studentClass = studentClass;
     }
 
-    public String getStudentClass() {
-        return studentClass;
+    public int getRollNo() {
+        return rollNo;
     }
 
-    public void setStudentClass(String studentClass) {
-        this.studentClass = studentClass;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public int getRoll_no() {
-        return roll_no;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public void setRoll_no(int roll_no) {
-        this.roll_no = roll_no;
+    public void setRollNo(int rollNo) {
+        this.rollNo = rollNo;
     }
 
-    public String getStudent_name() {
-        return student_name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setStudent_name(String student_name) {
-        this.student_name = student_name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public String getRank() {
@@ -54,5 +55,13 @@ public class Student {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    public String getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(String studentClass) {
+        this.studentClass = studentClass;
     }
 }

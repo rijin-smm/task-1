@@ -1,6 +1,5 @@
 package com.Task_4.studentManagement.Service;
 
-import com.Task_4.studentManagement.Model.Student;
 import com.Task_4.studentManagement.Model.StudentClass;
 import com.Task_4.studentManagement.Repository.studentClassRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +13,28 @@ public class studentClassService {
 
     @Autowired
     private studentClassRepo sc_repo;
-    private List<StudentClass> studentClasses = new ArrayList<>();
 
     public List<StudentClass> getAllStudentClass() {
         return sc_repo.findAll();
     }
 
-    public void createNewStudentClass(StudentClass studentClass) {
-        sc_repo.save(studentClass);
+    List<StudentClass> studentClasses = new ArrayList<>();
+    public void createNewStudentClass(StudentClass newStudentClass) {
+        sc_repo.save(newStudentClass);
     }
 
     public void deleteStudentClass(String student_class_id) {
         sc_repo.deleteById(student_class_id);
     }
 
-    public void updateStudentClass(StudentClass updatedStudentClass, String student_class_id) {
-        sc_repo.findById(student_class_id).map(studentClass -> {
-            studentClass.setStudent_class_id(updatedStudentClass.getStudent_class_id());
-            studentClass.setStudent_class_name(updatedStudentClass.getStudent_class_name());
+    public void updateStudentClass(StudentClass updatedStudentClass, String studentClassId) {
+        sc_repo.findById(studentClassId).map(studentClass -> {
+            studentClass.setId(updatedStudentClass.getId());
+            studentClass.setStudentName(updatedStudentClass.getStudentName());
             return sc_repo.save(updatedStudentClass);
-        }).orElseThrow(() -> new RuntimeException("StudentClass not found with id "+ student_class_id));
+        }).orElseThrow(() -> new RuntimeException("StudentClass not found with id "+ studentClassId));
+    }
+    public StudentClass getStudentClassById(String student_class_id) {
+        return sc_repo.findByStudentClassId(student_class_id);
     }
 }

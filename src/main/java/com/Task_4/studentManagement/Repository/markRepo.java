@@ -1,13 +1,12 @@
 package com.Task_4.studentManagement.Repository;
 
-import com.Task_4.studentManagement.Model.Teacher;
+import com.Task_4.studentManagement.Model.Mark;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface teacherRepo extends MongoRepository<Teacher,String> {
-
-    List<Teacher> findByTeacherSubject(String teacherSubject);
+public interface markRepo extends MongoRepository<Mark, String> {
+    List<Mark> findByStudentName(String studentName);
 }

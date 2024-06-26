@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class studentService {
@@ -25,8 +27,8 @@ public class studentService {
 
     public void updateStudent(Student updatedStudent,int roll_no) {
         sr.findById(roll_no).map(student -> {
-            student.setRoll_no(updatedStudent.getRoll_no());
-            student.setStudent_name(updatedStudent.getStudent_name());
+            student.setRollNo(updatedStudent.getRollNo());
+            student.setStudentName(updatedStudent.getStudentName());
             student.setRank(updatedStudent.getRank());
             return sr.save(student);
         }).orElseThrow(() -> new RuntimeException("Employee not found with id " + roll_no));
@@ -42,4 +44,13 @@ public class studentService {
     }
 
 
+    public List<Student> getStudentByname(String studentName) {
+        return sr.findByStudentName(studentName);
+    }
+
+
+
+    public List<Student> getStudentsWithFirstRank() {
+        return sr.findByRank("1");
+    }
 }

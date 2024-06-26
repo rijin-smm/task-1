@@ -3,32 +3,43 @@ package com.Task_4.studentManagement.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Document(collection = "student_class")
 public class StudentClass {
     @Id
-    private String student_class_id;
-    private String student_class_name;
+    private String Id;
+    private String studentName;
+    private String studentClassId;
 
-    public StudentClass(String student_class_id, String student_class_name) {
-        this.student_class_id = getStudent_class_id();
-        this.student_class_name = getStudent_class_name();
+    public StudentClass() {
     }
 
-    public String getStudent_class_id() {
-        return student_class_id;
+    public StudentClass(String Id, String studentName,String studentClassId) {
+        this.studentClassId = studentClassId;
+        this.Id = Id;
+        this.studentName = studentName;
     }
 
-    public void setStudent_class_id(String student_class_id) {
-        this.student_class_id = student_class_id;
+    public String getStudentClassId() {
+        return studentClassId;
     }
 
-    public String getStudent_class_name() {
-        return student_class_name;
+    public void setStudentClassId(String studentClassId) {
+        this.studentClassId = studentClassId;
     }
 
-    public void setStudent_class_name(String student_class_name) {
-        this.student_class_name = student_class_name;
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        this.Id = id;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }
