@@ -1,8 +1,7 @@
 package com.Task_4.studentManagement.Controller;
 
 import com.Task_4.studentManagement.Model.Mark;
-import com.Task_4.studentManagement.Service.markService;
-import com.Task_4.studentManagement.Service.studentClassService;
+import com.Task_4.studentManagement.Service.Interface.markService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,7 @@ public class markController {
     private markService ms;
 
     @Autowired
-    private com.Task_4.studentManagement.Service.studentClassService studentClassService;
+    private com.Task_4.studentManagement.Service.Interface.studentClassService studentClassService;
 
     @GetMapping(path = "/marks")
     public List<Mark> getAllMark(){

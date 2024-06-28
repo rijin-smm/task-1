@@ -1,7 +1,7 @@
 package com.Task_4.studentManagement.Controller;
 
 import com.Task_4.studentManagement.Model.Student;
-import com.Task_4.studentManagement.Service.studentService;
+import com.Task_4.studentManagement.Service.Interface.studentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,6 @@ import java.util.List;
 public class studentController {
     @Autowired
     private studentService ss;
-
-
-
 
     @PostMapping(path = "/students")
     public void addStudent(@RequestBody Student student){

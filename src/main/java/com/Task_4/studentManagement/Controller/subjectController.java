@@ -1,7 +1,7 @@
 package com.Task_4.studentManagement.Controller;
 
 import com.Task_4.studentManagement.Model.Subject;
-import com.Task_4.studentManagement.Service.subjectService;
+import com.Task_4.studentManagement.Service.Interface.subjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
