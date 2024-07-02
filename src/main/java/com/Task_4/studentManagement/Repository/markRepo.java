@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface markRepo extends MongoRepository<Mark, String> {
-    List<Mark> findByStudentName(String studentName);
+public interface markRepo extends MongoRepository<Mark, Long> {
+//    List<Mark> findByStudentName(String studentName);
 }

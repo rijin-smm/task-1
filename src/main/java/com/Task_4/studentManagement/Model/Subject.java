@@ -2,26 +2,33 @@ package com.Task_4.studentManagement.Model;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "subject")
 public class Subject {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "subject_sequence";
+
     @Id
-    private String id;
+    private long subjectId;
     private String subjectName;
 
-    public Subject(String id, String subjectName) {
-        this.id = id;
+    public Subject(long subjectId, String subjectName) {
+        this.subjectId = subjectId;
         this.subjectName = subjectName;
     }
 
-    public String getId() {
-        return id;
+    public long getSubjectId() {
+        return subjectId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
     }
+
+
 
     public String getSubjectName() {
         return subjectName;

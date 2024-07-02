@@ -24,14 +24,13 @@ public class studentClassController {
         stud_ser.createNewStudentClass(newStudentClass);
     }
 
-    @DeleteMapping(path = "/studentClass/{student_class_id}")
-    public void deleteStudentClass(@PathVariable String student_class_id){
-        stud_ser.deleteStudentClass(student_class_id);
-    }
-
-    @PutMapping(path = "/students/{student_class_id}")
-    public void updateStudentClass(@RequestBody StudentClass updatedStudentClass, @PathVariable String student_class_id){
-        stud_ser.updateStudentClass(updatedStudentClass, student_class_id);
-    }
-
+//    @DeleteMapping(path = "/studentClass/{student_class_id}")
+//    public void deleteStudentClass(@PathVariable String student_class_id){
+//        stud_ser.deleteStudentClass(student_class_id);
+//    }
+//
+//    @PutMapping(path = "/student/{student_class_id}")
+//    public void updateStudentClass(@RequestBody StudentClass updatedStudentClass, @PathVariable String student_class_id){
+//        stud_ser.updateStudentClass(updatedStudentClass, student_class_id);
+//    }
 }

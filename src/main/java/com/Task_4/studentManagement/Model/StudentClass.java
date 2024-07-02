@@ -6,40 +6,41 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "student_class")
 public class StudentClass {
     @Id
-    private String Id;
-    private String studentName;
-    private String studentClassId;
+    private long classId;
+    private String teacher;
+    private String className;
 
     public StudentClass() {
     }
 
-    public StudentClass(String Id, String studentName,String studentClassId) {
-        this.studentClassId = studentClassId;
-        this.Id = Id;
-        this.studentName = studentName;
+    public StudentClass(long classId, String teacher, String className) {
+        this.classId = classId;
+        this.teacher = teacher;
+        this.className = className;
     }
 
-    public String getStudentClassId() {
-        return studentClassId;
+
+    public long getClassId() {
+        return classId;
     }
 
-    public void setStudentClassId(String studentClassId) {
-        this.studentClassId = studentClassId;
+    public void setClassId(long classId) {
+        this.classId = classId;
     }
 
-    public String getId() {
-        return Id;
+    public String getTeacher() {
+        return teacher;
     }
 
-    public void setId(String id) {
-        this.Id = id;
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getClassName() {
+        return className;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

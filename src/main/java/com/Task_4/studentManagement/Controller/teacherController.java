@@ -18,25 +18,25 @@ public class teacherController {
         return ts.getAllTeacher();
     }
 
-    @PostMapping(path = "/teachers")
+    @PostMapping(path = "/teacher")
     public void createTeacher(@RequestBody Teacher newTeacher){
         ts.createTeacher(newTeacher);
     }
 
-    @DeleteMapping(path = "/teachers/{teacher_id}")
-    public void deleteTeacher(@PathVariable String teacher_id){
-        ts.deleteTeacher(teacher_id);
-    }
+//    @DeleteMapping(path = "/teacher/{teacher_id}")
+//    public void deleteTeacher(@PathVariable String teacher_id){
+//        ts.deleteTeacher(teacher_id);
+//    }
+//
+//    @PutMapping(path = "/teacher/{teacher_id}")
+//    public void updateTeacher(@RequestBody Teacher updatedTeacher, @PathVariable String teacher_id){
+//        ts.updateTeacher(updatedTeacher,teacher_id);
+//    }
 
-    @PutMapping(path = "/teachers/{teacher_id}")
-    public void updateTeacher(@RequestBody Teacher updatedTeacher, @PathVariable String teacher_id){
-        ts.updateTeacher(updatedTeacher,teacher_id);
-    }
-
-    @GetMapping(path = "/teachers/{teacher_subject}")
-    public List<Teacher> getTeacherBySubject(@PathVariable String teacher_subject){
-        return ts.getTeacherBySubjectName(teacher_subject);
-
-    }
+//    @GetMapping(path = "/teachers/{teacher_subject}")
+//    public List<Teacher> getTeacherBySubject(@PathVariable String teacher_subject){
+//        return ts.getTeacherBySubjectName(teacher_subject);
+//
+//    }
 
 }

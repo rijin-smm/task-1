@@ -13,7 +13,7 @@ public class subjectController {
     @Autowired
     private subjectService subj_ser;
 
-    @GetMapping(path = "/subject")
+    @GetMapping(path = "/subjects")
     public List<Subject> getAllSubject(){
         return subj_ser.getAllSubject();
     }
@@ -23,13 +23,13 @@ public class subjectController {
         subj_ser.createNewSubject(newSubject);
     }
 
-    @DeleteMapping(path = "subject/{id}")
-    public void deleteSubject(@PathVariable String id){
-        subj_ser.deleteSubject(id);
-    }
-
-    @PutMapping(path = "subject/{id}")
-    public void updateSubject(@RequestBody Subject updatedSubject, @PathVariable String id){
-        subj_ser.updateSubject(updatedSubject,id);
-    }
+//    @DeleteMapping(path = "subject/{id}")
+//    public void deleteSubject(@PathVariable String id){
+//        subj_ser.deleteSubject(id);
+//    }
+//
+//    @PutMapping(path = "subject/{id}")
+//    public void updateSubject(@RequestBody Subject updatedSubject, @PathVariable String id){
+//        subj_ser.updateSubject(updatedSubject,id);
+//    }
 }

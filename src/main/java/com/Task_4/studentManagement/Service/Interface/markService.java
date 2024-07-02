@@ -7,7 +7,7 @@ import java.util.List;
 public interface markService {
     List<Mark> getAllMark();
     void addMark(Mark mark);
-    void deleteMark(String mark_id);
-    void updateMark(Mark updatedMark, String markId);
-    List<Mark> getMarksByStudentName(String studentName);
+//    void deleteMark(String mark_id);
+//    void updateMark(Mark updatedMark, String markId);
+//    List<Mark> getMarksByStudentName(String studentName);
 }

@@ -1,44 +1,34 @@
 package com.Task_4.studentManagement.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "student")
 public class Student {
-    @Id
-    private String studentId;
-    private int rollNo;
-    private String studentName;
-    private String rank;
-    private String studentClass;
 
+    @Transient
+    public static final String SEQUENCE_NAME = "student_sequence";
+
+    @Id
+    private long Id;
+    private String studentName;
+    private long classId;
 
     public Student() {
     }
 
-    public Student(String studentId, int rollNo, String studentName, String rank, String studentClass) {
-        super();
-        this.studentId = studentId;
-        this.rollNo = rollNo;
+    public Student(String studentName, long classId) {
         this.studentName = studentName;
-        this.rank = rank;
-        this.studentClass = studentClass;
+        this.classId = classId;
     }
 
-    public int getRollNo() {
-        return rollNo;
+    public long getId() {
+        return Id;
     }
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public void setRollNo(int rollNo) {
-        this.rollNo = rollNo;
+    public void setId(long id) {
+        this.Id = id;
     }
 
     public String getStudentName() {
@@ -49,19 +39,11 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getRank() {
-        return rank;
+    public long getClassId() {
+        return classId;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public String getStudentClass() {
-        return studentClass;
-    }
-
-    public void setStudentClass(String studentClass) {
-        this.studentClass = studentClass;
+    public void setClassId(long classId) {
+        this.classId = classId;
     }
 }

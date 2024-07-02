@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface teacherRepo extends MongoRepository<Teacher,String> {
+public interface teacherRepo extends MongoRepository<Teacher,Long> {
 
-    List<Teacher> findByTeacherSubject(String teacherSubject);
+//    List<Teacher> findByTeacherSubject(String teacherSubject);
 }

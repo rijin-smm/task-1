@@ -29,35 +29,35 @@ public class markServiceImpl implements markService {
         mr.save(mark);
     }
 
-    @Override
-    public void deleteMark(String mark_id) {
-        mr.deleteById(mark_id);
-    }
+//    @Override
+//    public void deleteMark(String mark_id) {
+//        mr.deleteById(mark_id);
+//    }
 
-    @Override
-    public void updateMark(Mark updatedMark, String markId) {
-        mr.findById(markId).map(marks -> {
-            marks.setMarkId(updatedMark.getMarkId());
-            marks.setStudentName(updatedMark.getStudentName());
-            marks.setSubjectName(updatedMark.getSubjectName());
-            marks.setMarks(updatedMark.getMarks());
-            return mr.save(marks);
-        }).orElseThrow(() -> new RuntimeException("mark not found with id " + markId));
-    }
+//    @Override
+//    public void updateMark(Mark updatedMark, String markId) {
+//        mr.findById(markId).map(marks -> {
+//            marks.setMarkId(updatedMark.getMarkId());
+//            marks.setStudentName(updatedMark.getStudentName());
+//            marks.setSubjectName(updatedMark.getSubjectName());
+//            marks.setMarks(updatedMark.getMarks());
+//            return mr.save(marks);
+//        }).orElseThrow(() -> new RuntimeException("mark not found with id " + markId));
+//    }
 
-    @Override
-    public List<Mark> getMarksByStudentName(String studentName) {
-        List<Student> students = studentRepository.findByStudentName(studentName);
-        if (students.isEmpty()) {
-            throw new RuntimeException("Student not found with name " + studentName);
-        }
-
-        List<Mark> marks = new ArrayList<>();
-        for (Student student : students) {
-            List<Mark> studentMarks = mr.findByStudentName(student.getStudentName());
-            marks.addAll(studentMarks);
-        }
-        return marks;
-    }
+//    @Override
+//    public List<Mark> getMarksByStudentName(String studentName) {
+//        List<Student> students = studentRepository.findByStudentName(studentName);
+//        if (students.isEmpty()) {
+//            throw new RuntimeException("Student not found with name " + studentName);
+//        }
+//
+//        List<Mark> marks = new ArrayList<>();
+//        for (Student student : students) {
+//            List<Mark> studentMarks = mr.findByStudentName(student.getStudentName());
+//            marks.addAll(studentMarks);
+//        }
+//        return marks;
+//    }
 
 }

@@ -15,6 +15,9 @@ public class subjectServiceImpl implements subjectService {
     @Autowired
     private subjectRepo subj_rep;
 
+    @Autowired
+    private com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService sequenceGeneratorService;
+
     List<Subject> subjects = new ArrayList<>();
 
     @Override
@@ -24,13 +27,14 @@ public class subjectServiceImpl implements subjectService {
 
     @Override
     public void createNewSubject(Subject newSubject) {
+        newSubject.setSubjectId(sequenceGeneratorService.generateSequence(newSubject.SEQUENCE_NAME));
         subj_rep.save(newSubject);
     }
 
-    @Override
-    public void deleteSubject(String subjectId) {
-        subj_rep.deleteById(subjectId);
-    }
+//    @Override
+//    public void deleteSubject(String subjectId) {
+//        subj_rep.deleteById(subjectId);
+//    }
 
 //    public void updateSubject(Subject updatedSubject, String subject_id) {
 //        subj_rep.findById(subject_id).map(subject -> {
@@ -41,11 +45,11 @@ public class subjectServiceImpl implements subjectService {
 //
 //        }
 
-    @Override
-    public Subject updateSubject(Subject subjectDetails, String id ) {
-        Subject subject = subj_rep.findById(id).orElseThrow();
-        subject.setId(subjectDetails.getId());
-        subject.setSubjectName(subjectDetails.getSubjectName());
-        return subj_rep.save(subject);
-    }
+//    @Override
+//    public Subject updateSubject(Subject subjectDetails, String id ) {
+//        Subject subject = subj_rep.findById(id).orElseThrow();
+//        subject.setId(subjectDetails.getId());
+//        subject.setSubjectName(subjectDetails.getSubjectName());
+//        return subj_rep.save(subject);
+//    }
 }

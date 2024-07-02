@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StudentRepo extends MongoRepository<Student,Integer> {
+public interface StudentRepo extends MongoRepository<Student,Long> {
 
-    List<Student> findTop3ByOrderByRankAsc();
-    List<Student> findByStudentName(String studentName);
-    List<Student> findByRank(String rank);
+//    List<Student> findTop3ByOrderByRankAsc();
+//    List<Student> findByStudentName(String studentName);
+//    List<Student> findByRank(String rank);
 }

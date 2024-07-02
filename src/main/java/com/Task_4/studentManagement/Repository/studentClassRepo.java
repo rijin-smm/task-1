@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface studentClassRepo extends MongoRepository<StudentClass,String> {
-    StudentClass findByStudentClassId(String studentClassId);
+public interface studentClassRepo extends MongoRepository<StudentClass,Long> {
+//    StudentClass findByStudentClassId(String studentClassId);
 }

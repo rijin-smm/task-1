@@ -1,48 +1,55 @@
 package com.Task_4.studentManagement.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "teacher")
 public class Teacher {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "teacher_sequence";
+
     @Id
-    private String teacher_id;
-    private String teacher_name;
-    private String teacherSubject;
+    private long teacherId;
+    private String teacherName;
+    private List<Integer> teacherSubject;
 
 
     public Teacher() {
     }
 
-    public Teacher(String teacher_id, String teacher_name, String teacherSubject) {
+    public Teacher(long teacherId, String teacherName, List<Integer> teacherSubject) {
         super();
-        this.teacher_id = teacher_id;
-        this.teacher_name = teacher_name;
+        this.teacherId = teacherId;
+        this.teacherName = teacherName;
         this.teacherSubject = teacherSubject;
     }
 
 
-    public String getTeacher_id() {
-        return teacher_id;
+    public long getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher_id(String teacher_id) {
-        this.teacher_id = teacher_id;
+    public void setTeacherId(long teacherId) {
+        this.teacherId = teacherId;
     }
 
-    public String getTeacher_name() {
-        return teacher_name;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setTeacher_name(String teacher_name) {
-        this.teacher_name = teacher_name;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
-    public String getTeacherSubject() {
+    public List<Integer> getTeacherSubject() {
         return teacherSubject;
     }
 
-    public void setTeacherSubject(String teacherSubject) {
+    public void setTeacherSubject(List<Integer> teacherSubject) {
         this.teacherSubject = teacherSubject;
     }
 }

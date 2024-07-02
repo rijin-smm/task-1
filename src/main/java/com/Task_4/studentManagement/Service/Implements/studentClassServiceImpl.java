@@ -26,22 +26,22 @@ public class studentClassServiceImpl implements studentClassService {
         sc_repo.save(newStudentClass);
     }
 
-    @Override
-    public void deleteStudentClass(String student_class_id) {
-        sc_repo.deleteById(student_class_id);
-    }
+//    @Override
+//    public void deleteStudentClass(String student_class_id) {
+//        sc_repo.deleteById(student_class_id);
+//    }
+//
+//    @Override
+//    public void updateStudentClass(StudentClass updatedStudentClass, String studentClassId) {
+//        sc_repo.findById(studentClassId).map(studentClass -> {
+//            studentClass.setId(updatedStudentClass.getId());
+//            studentClass.setStudentName(updatedStudentClass.getStudentName());
+//            return sc_repo.save(updatedStudentClass);
+//        }).orElseThrow(() -> new RuntimeException("StudentClass not found with id "+ studentClassId));
+//    }
 
-    @Override
-    public void updateStudentClass(StudentClass updatedStudentClass, String studentClassId) {
-        sc_repo.findById(studentClassId).map(studentClass -> {
-            studentClass.setId(updatedStudentClass.getId());
-            studentClass.setStudentName(updatedStudentClass.getStudentName());
-            return sc_repo.save(updatedStudentClass);
-        }).orElseThrow(() -> new RuntimeException("StudentClass not found with id "+ studentClassId));
-    }
-
-    @Override
-    public StudentClass getStudentClassById(String student_class_id) {
-        return sc_repo.findByStudentClassId(student_class_id);
-    }
+//    @Override
+//    public StudentClass getStudentClassById(String student_class_id) {
+//        return sc_repo.findByStudentClassId(student_class_id);
+//    }
 }

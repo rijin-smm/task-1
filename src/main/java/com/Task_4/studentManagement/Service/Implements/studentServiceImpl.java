@@ -17,6 +17,9 @@ public class studentServiceImpl implements studentService {
     private List<Student> students = new ArrayList<>();
 
 
+    @Autowired
+    private com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService sequenceGeneratorService;
+
     @Override
     public List<Student> getAllStudent() {
         return sr.findAll();
@@ -24,35 +27,38 @@ public class studentServiceImpl implements studentService {
 
     @Override
     public void addStudent(Student newStudent){
+        newStudent.setId(sequenceGeneratorService.generateSequence(newStudent.SEQUENCE_NAME));
         sr.save(newStudent);
     }
 
-    @Override
-    public void updateStudent(Student updatedStudent,int roll_no) {
-        sr.findById(roll_no).map(student -> {
-            student.setRollNo(updatedStudent.getRollNo());
-            student.setStudentName(updatedStudent.getStudentName());
-            student.setRank(updatedStudent.getRank());
-            return sr.save(student);
-        }).orElseThrow(() -> new RuntimeException("Employee not found with id " + roll_no));
-    }
-
-    @Override
-    public void deleteStudent(int roll_no) {
-        sr.deleteById(roll_no);
-    }
-
-    @Override
-    public List<Student> getTop3Student() {
-        return sr.findTop3ByOrderByRankAsc();
-    }
-    @Override
-    public List<Student> getStudentByname(String studentName) {
-        return sr.findByStudentName(studentName);
-    }
-
-    @Override
-    public List<Student> getStudentsWithFirstRank() {
-        return sr.findByRank("1");
-    }
+//    @Override
+//    public void updateStudent(Student updatedStudent, String studentId) {
+//        sr.findById(studentId).map(student -> {
+//            student.setRollNo(updatedStudent.getRollNo());
+//            student.setStudentName(updatedStudent.getStudentName());
+//            student.setRank(updatedStudent.getRank());
+//            student.setStudentClass(updatedStudent.getStudentClass());
+//            return sr.save(student);
+//        }).orElseThrow(() -> new RuntimeException("Student not found with id " + studentId));
+//    }
+//
+//
+//    @Override
+//    public void deleteStudent(String studentId) {
+//        sr.deleteById(studentId);
+//    }
+//
+//    @Override
+//    public List<Student> getTop3Student() {
+//        return sr.findTop3ByOrderByRankAsc();
+//    }
+//    @Override
+//    public List<Student> getStudentByname(String studentName) {
+//        return sr.findByStudentName(studentName);
+//    }
+//
+//    @Override
+//    public List<Student> getStudentsWithFirstRank() {
+//        return sr.findByRank("1");
+//    }
 }
