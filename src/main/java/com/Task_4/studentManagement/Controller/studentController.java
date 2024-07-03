@@ -23,25 +23,25 @@ public class studentController {
         return ss.getAllStudent();
     }
 
-//    @PutMapping(path = "/student/{studentId}")
-//    public void updateStudent(@RequestBody Student updatedStudent, @PathVariable String studentId){
-//        ss.updateStudent(updatedStudent,studentId);
-//    }
+    @PutMapping(path = "/student/{id}")
+    public void updateStudent(@RequestBody Student updatedStudent, @PathVariable long id){
+        ss.updateStudent(updatedStudent,id);
+    }
 //
-//    @DeleteMapping(path = "/student/{studentId}")
-//    public void deleteStudent(@PathVariable String studentId){
-//        ss.deleteStudent(studentId);
-//    }
+    @DeleteMapping(path = "/student/{id}")
+    public void deleteStudent(@PathVariable("id") long id){
+        ss.deleteStudent(id);
+    }
 
 //    @GetMapping(path = "/students/top3")
 //    public List<Student> getTop3Student(){
 //        return ss.getTop3Student();
 //    }
 
-//    @GetMapping(path = "/students/{studentName}")
-//    public List<Student> getStudentByName(@PathVariable String studentName){
-//        return ss.getStudentByname(studentName);
-//    }
+    @GetMapping(path = "/student/{studentName}")
+    public List<Student> getStudentByName(@PathVariable String studentName){
+        return ss.getStudentByname(studentName);
+    }
 
 //    @GetMapping("/students/firstRanked")
 //    public List<Student> getStudentsWithFirstRank() {

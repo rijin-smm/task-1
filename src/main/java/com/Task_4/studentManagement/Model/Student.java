@@ -11,7 +11,7 @@ public class Student {
     public static final String SEQUENCE_NAME = "student_sequence";
 
     @Id
-    private long Id;
+    private long id;
     private String studentName;
     private long classId;
 
@@ -24,11 +24,11 @@ public class Student {
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        this.Id = id;
+        this.id = id;
     }
 
     public String getStudentName() {

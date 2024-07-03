@@ -23,20 +23,19 @@ public class teacherController {
         ts.createTeacher(newTeacher);
     }
 
-//    @DeleteMapping(path = "/teacher/{teacher_id}")
-//    public void deleteTeacher(@PathVariable String teacher_id){
-//        ts.deleteTeacher(teacher_id);
-//    }
+    @DeleteMapping(path = "/teacher/{teacherId}")
+    public void deleteTeacher(@PathVariable long teacherId){
+        ts.deleteTeacher(teacherId);
+    }
 //
-//    @PutMapping(path = "/teacher/{teacher_id}")
-//    public void updateTeacher(@RequestBody Teacher updatedTeacher, @PathVariable String teacher_id){
-//        ts.updateTeacher(updatedTeacher,teacher_id);
-//    }
+    @PutMapping(path = "/teacher/{teacherId}")
+    public void updateTeacher(@RequestBody Teacher updatedTeacher, @PathVariable long teacherId){
+        ts.updateTeacher(updatedTeacher,teacherId);
+    }
 
-//    @GetMapping(path = "/teachers/{teacher_subject}")
-//    public List<Teacher> getTeacherBySubject(@PathVariable String teacher_subject){
-//        return ts.getTeacherBySubjectName(teacher_subject);
-//
-//    }
+    @GetMapping("/teachers/subject/{subjectName}")
+    public List<Teacher> getTeachersBySubjectName(@PathVariable String subjectName) {
+        return ts.getTeachersBySubjectName(subjectName);
+    }
 
 }

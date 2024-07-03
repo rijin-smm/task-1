@@ -1,11 +1,18 @@
 package com.Task_4.studentManagement.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "marks")
 public class Mark {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "mark_sequence";
+
     @Id
+    private long markId;
+
     private long studentId;
     private long subjectId;
     private double marks;
@@ -17,6 +24,14 @@ public class Mark {
         this.subjectId = subjectId;
         this.marks = marks;
         this.studentId = studentId;
+    }
+
+    public long getMarkId() {
+        return markId;
+    }
+
+    public void setMarkId(long markId) {
+        this.markId = markId;
     }
 
     public long getSubjectId() {
@@ -42,4 +57,6 @@ public class Mark {
     public void setStudentId(long studentId) {
         this.studentId = studentId;
     }
-}
+
+    }
+

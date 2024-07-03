@@ -7,9 +7,10 @@ import java.util.List;
 public interface studentService {
     List<Student> getAllStudent();
     void addStudent(Student newStudent);
-//    void deleteStudent(String studentId);
+    void deleteStudent(long id);
+    void updateStudent(Student updatedStudent, long id);
 //    List<Student> getTop3Student();
-//    List<Student> getStudentByname(String studentName);
+    List<Student> getStudentByname(String studentName);
 //    List<Student> getStudentsWithFirstRank();
-//    void updateStudent(Student updatedStudent, String studentId);
+
 }

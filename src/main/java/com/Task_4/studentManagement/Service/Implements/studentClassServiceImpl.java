@@ -14,6 +14,9 @@ public class studentClassServiceImpl implements studentClassService {
     @Autowired
     private studentClassRepo sc_repo;
 
+    @Autowired
+    private com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService sequenceGeneratorService;
+
     @Override
     public List<StudentClass> getAllStudentClass() {
         return sc_repo.findAll();
@@ -23,22 +26,24 @@ public class studentClassServiceImpl implements studentClassService {
 
     @Override
     public void createNewStudentClass(StudentClass newStudentClass) {
+        newStudentClass.setClassId(sequenceGeneratorService.generateSequence(newStudentClass.SEQUENCE_NAME));
+        sc_repo.save(newStudentClass);
         sc_repo.save(newStudentClass);
     }
 
-//    @Override
-//    public void deleteStudentClass(String student_class_id) {
-//        sc_repo.deleteById(student_class_id);
-//    }
-//
-//    @Override
-//    public void updateStudentClass(StudentClass updatedStudentClass, String studentClassId) {
-//        sc_repo.findById(studentClassId).map(studentClass -> {
-//            studentClass.setId(updatedStudentClass.getId());
-//            studentClass.setStudentName(updatedStudentClass.getStudentName());
-//            return sc_repo.save(updatedStudentClass);
-//        }).orElseThrow(() -> new RuntimeException("StudentClass not found with id "+ studentClassId));
-//    }
+    @Override
+    public void deleteStudentClass(long classId) {
+        sc_repo.deleteById(classId);
+    }
+
+    @Override
+    public void updateStudentClass(StudentClass updatedStudentClass, long classId) {
+        sc_repo.findById(classId).map(studentClass -> {
+            studentClass.setTeacherId(updatedStudentClass.getTeacherId());
+            studentClass.setClassName(updatedStudentClass.getClassName());
+            return sc_repo.save(updatedStudentClass);
+        }).orElseThrow(() -> new RuntimeException("StudentClass not found with id "+ classId));
+    }
 
 //    @Override
 //    public StudentClass getStudentClassById(String student_class_id) {

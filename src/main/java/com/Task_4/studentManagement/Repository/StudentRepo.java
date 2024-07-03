@@ -10,6 +10,6 @@ import java.util.List;
 public interface StudentRepo extends MongoRepository<Student,Long> {
 
 //    List<Student> findTop3ByOrderByRankAsc();
-//    List<Student> findByStudentName(String studentName);
+    List<Student> findByStudentName(String studentName);
 //    List<Student> findByRank(String rank);
 }

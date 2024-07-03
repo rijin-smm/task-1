@@ -31,25 +31,15 @@ public class subjectServiceImpl implements subjectService {
         subj_rep.save(newSubject);
     }
 
-//    @Override
-//    public void deleteSubject(String subjectId) {
-//        subj_rep.deleteById(subjectId);
-//    }
+    @Override
+    public void deleteSubject(long subjectId) {
+        subj_rep.deleteById(subjectId);
+    }
 
-//    public void updateSubject(Subject updatedSubject, String subject_id) {
-//        subj_rep.findById(subject_id).map(subject -> {
-//                    subject.setSubject_id(updatedSubject.getSubject_id());
-//                    subject.setSubject_name(updatedSubject.getSubject_name());
-//                    return subj_rep.save(subject);
-//            }).orElseThrow(() -> new RuntimeException("Subject not found with id " +subject_id ));
-//
-//        }
-
-//    @Override
-//    public Subject updateSubject(Subject subjectDetails, String id ) {
-//        Subject subject = subj_rep.findById(id).orElseThrow();
-//        subject.setId(subjectDetails.getId());
-//        subject.setSubjectName(subjectDetails.getSubjectName());
-//        return subj_rep.save(subject);
-//    }
+    @Override
+    public Subject updateSubject(Subject subjectDetails, long subjectId ) {
+        Subject subject = subj_rep.findById(subjectId).orElseThrow();
+        subject.setSubjectName(subjectDetails.getSubjectName());
+        return subj_rep.save(subject);
+    }
 }

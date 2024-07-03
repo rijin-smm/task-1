@@ -31,31 +31,29 @@ public class studentServiceImpl implements studentService {
         sr.save(newStudent);
     }
 
-//    @Override
-//    public void updateStudent(Student updatedStudent, String studentId) {
-//        sr.findById(studentId).map(student -> {
-//            student.setRollNo(updatedStudent.getRollNo());
-//            student.setStudentName(updatedStudent.getStudentName());
-//            student.setRank(updatedStudent.getRank());
-//            student.setStudentClass(updatedStudent.getStudentClass());
-//            return sr.save(student);
-//        }).orElseThrow(() -> new RuntimeException("Student not found with id " + studentId));
-//    }
-//
-//
-//    @Override
-//    public void deleteStudent(String studentId) {
-//        sr.deleteById(studentId);
-//    }
-//
+    @Override
+    public void updateStudent(Student updatedStudent, long id) {
+        sr.findById(id).map(student -> {
+            student.setStudentName(updatedStudent.getStudentName());
+            student.setClassId(updatedStudent.getClassId());
+            return sr.save(student);
+        }).orElseThrow(() -> new RuntimeException("Student not found with id " + id));
+    }
+
+
+    @Override
+    public void deleteStudent(long id) {
+        sr.deleteById(id);
+    }
+
 //    @Override
 //    public List<Student> getTop3Student() {
 //        return sr.findTop3ByOrderByRankAsc();
 //    }
-//    @Override
-//    public List<Student> getStudentByname(String studentName) {
-//        return sr.findByStudentName(studentName);
-//    }
+    @Override
+    public List<Student> getStudentByname(String studentName) {
+        return sr.findByStudentName(studentName);
+    }
 //
 //    @Override
 //    public List<Student> getStudentsWithFirstRank() {

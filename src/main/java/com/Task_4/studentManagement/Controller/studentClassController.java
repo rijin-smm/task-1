@@ -14,7 +14,7 @@ public class studentClassController {
     @Autowired
     private studentClassService stud_ser;
 
-    @GetMapping(path = "/studentClass")
+    @GetMapping(path = "/studentClasses")
     public List<StudentClass>  getAllStudentClass(){
         return stud_ser.getAllStudentClass();
     }
@@ -24,13 +24,13 @@ public class studentClassController {
         stud_ser.createNewStudentClass(newStudentClass);
     }
 
-//    @DeleteMapping(path = "/studentClass/{student_class_id}")
-//    public void deleteStudentClass(@PathVariable String student_class_id){
-//        stud_ser.deleteStudentClass(student_class_id);
-//    }
-//
-//    @PutMapping(path = "/student/{student_class_id}")
-//    public void updateStudentClass(@RequestBody StudentClass updatedStudentClass, @PathVariable String student_class_id){
-//        stud_ser.updateStudentClass(updatedStudentClass, student_class_id);
-//    }
+    @DeleteMapping(path = "/studentClass/{classId}")
+    public void deleteStudentClass(@PathVariable long classId){
+        stud_ser.deleteStudentClass(classId);
+    }
+
+    @PutMapping(path = "/student/{classId}")
+    public void updateStudentClass(@RequestBody StudentClass updatedStudentClass, @PathVariable long classId){
+        stud_ser.updateStudentClass(updatedStudentClass, classId);
+    }
 }

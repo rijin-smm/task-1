@@ -7,6 +7,6 @@ import java.util.List;
 public interface subjectService {
     List<Subject> getAllSubject();
     void createNewSubject(Subject newSubject);
-//    void deleteSubject(String subjectId);
-//    Subject updateSubject(Subject subjectDetails, String id );
+    void deleteSubject(long subjectId);
+    Subject updateSubject(Subject subjectDetails, long subjectId );
 }

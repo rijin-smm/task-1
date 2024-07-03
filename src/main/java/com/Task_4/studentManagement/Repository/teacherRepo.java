@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface teacherRepo extends MongoRepository<Teacher,Long> {
 
-//    List<Teacher> findByTeacherSubject(String teacherSubject);
+    List<Teacher> findByTeacherSubjectContaining(long subjectId);
 }

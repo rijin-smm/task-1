@@ -23,13 +23,13 @@ public class subjectController {
         subj_ser.createNewSubject(newSubject);
     }
 
-//    @DeleteMapping(path = "subject/{id}")
-//    public void deleteSubject(@PathVariable String id){
-//        subj_ser.deleteSubject(id);
-//    }
+    @DeleteMapping(path = "subject/{subjectId}")
+    public void deleteSubject(@PathVariable long subjectId){
+        subj_ser.deleteSubject(subjectId);
+    }
 //
-//    @PutMapping(path = "subject/{id}")
-//    public void updateSubject(@RequestBody Subject updatedSubject, @PathVariable String id){
-//        subj_ser.updateSubject(updatedSubject,id);
-//    }
+    @PutMapping(path = "subject/{subjectId}")
+    public void updateSubject(@RequestBody Subject updatedSubject, @PathVariable long subjectId){
+        subj_ser.updateSubject(updatedSubject,subjectId);
+    }
 }

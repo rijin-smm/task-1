@@ -27,16 +27,16 @@ public class markController {
 
     }
 
-//    @DeleteMapping(path = "/mark/{markId}")
-//    public void deleteMark(@PathVariable String markId){
-//        ms.deleteMark(markId);
-//    }
+    @DeleteMapping(path = "/mark/{markId}")
+    public void deleteMark(@PathVariable long markId){
+        ms.deleteMark(markId);
+    }
 //
-//    @PutMapping(path = "/mark/{markId}")
-//    public void updateMark(@RequestBody Mark mark, @PathVariable String markId){
-//        ms.updateMark(mark,markId);
-//    }
-//
+    @PutMapping(path = "/mark/{markId}")
+    public void updateMark(@RequestBody Mark newMark, @PathVariable long markId){
+        ms.updateMark(newMark, markId);
+    }
+
 
 //    @GetMapping("/student/{studentName}")
 //    public List<Mark> getMarksByStudentName(

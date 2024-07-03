@@ -15,13 +15,13 @@ public class Teacher {
     @Id
     private long teacherId;
     private String teacherName;
-    private List<Integer> teacherSubject;
+    private List<Long> teacherSubject;
 
 
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String teacherName, List<Integer> teacherSubject) {
+    public Teacher(long teacherId, String teacherName, List<Long> teacherSubject) {
         super();
         this.teacherId = teacherId;
         this.teacherName = teacherName;
@@ -45,11 +45,11 @@ public class Teacher {
         this.teacherName = teacherName;
     }
 
-    public List<Integer> getTeacherSubject() {
+    public List<Long> getTeacherSubject() {
         return teacherSubject;
     }
 
-    public void setTeacherSubject(List<Integer> teacherSubject) {
+    public void setTeacherSubject(List<Long> teacherSubject) {
         this.teacherSubject = teacherSubject;
     }
 }
