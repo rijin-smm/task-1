@@ -38,9 +38,9 @@ public class markController {
     }
 
 
-//    @GetMapping("/student/{studentName}")
-//    public List<Mark> getMarksByStudentName(
-//            @PathVariable String studentName) {
-//        return ms.getMarksByStudentName(studentName);
-//    }
+    @GetMapping("/marks/student/{studentName}")
+    public List<Mark> getMarksByStudentName(
+            @PathVariable String studentName) {
+        return ms.getMarksByStudentName(studentName);
+    }
 }

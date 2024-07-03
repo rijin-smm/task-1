@@ -18,7 +18,7 @@ public class markServiceImpl implements markService {
     @Autowired
     private markRepo mr;
     @Autowired
-    private StudentRepo studentRepository;
+    private StudentRepo sr;
 
     @Autowired
     private com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService sequenceGeneratorService;
@@ -50,19 +50,13 @@ public class markServiceImpl implements markService {
 
     }
 
-//    @Override
-//    public List<Mark> getMarksByStudentName(String studentName) {
-//        List<Student> students = studentRepository.findByStudentName(studentName);
-//        if (students.isEmpty()) {
-//            throw new RuntimeException("Student not found with name " + studentName);
-//        }
-//
-//        List<Mark> marks = new ArrayList<>();
-//        for (Student student : students) {
-//            List<Mark> studentMarks = mr.findByStudentName(student.getStudentName());
-//            marks.addAll(studentMarks);
-//        }
-//        return marks;
-//    }
+    @Override
+    public List<Mark> getMarksByStudentName(String studentName) {
+        Student student= sr.findByStudentName(studentName);
+        if (student == null) {
+            throw new IllegalArgumentException("Student with name " + studentName + " not found");
+        }
+        return mr.findByStudentId(student.getId());
+    }
 
 }

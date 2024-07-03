@@ -9,5 +9,5 @@ public interface markService {
     void addMark(Mark mark);
     void deleteMark(long markId);
     void updateMark(Mark newMark, long markId);
-//    List<Mark> getMarksByStudentName(String studentName);
+    List<Mark> getMarksByStudentName(String studentName);
 }

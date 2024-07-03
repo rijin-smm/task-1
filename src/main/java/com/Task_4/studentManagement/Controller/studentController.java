@@ -39,7 +39,7 @@ public class studentController {
 //    }
 
     @GetMapping(path = "/student/{studentName}")
-    public List<Student> getStudentByName(@PathVariable String studentName){
+    Student getStudentByName(@PathVariable String studentName){
         return ss.getStudentByname(studentName);
     }
 

@@ -10,7 +10,7 @@ public interface studentService {
     void deleteStudent(long id);
     void updateStudent(Student updatedStudent, long id);
 //    List<Student> getTop3Student();
-    List<Student> getStudentByname(String studentName);
+    Student getStudentByname(String studentName);
 //    List<Student> getStudentsWithFirstRank();
 
 }

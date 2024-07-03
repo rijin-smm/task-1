@@ -51,7 +51,7 @@ public class studentServiceImpl implements studentService {
 //        return sr.findTop3ByOrderByRankAsc();
 //    }
     @Override
-    public List<Student> getStudentByname(String studentName) {
+    public Student getStudentByname(String studentName) {
         return sr.findByStudentName(studentName);
     }
 //
