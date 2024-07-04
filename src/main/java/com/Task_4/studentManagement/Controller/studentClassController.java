@@ -29,7 +29,7 @@ public class studentClassController {
         stud_ser.deleteStudentClass(classId);
     }
 
-    @PutMapping(path = "/student/{classId}")
+    @PutMapping(path = "/studentClass/{classId}")
     public void updateStudentClass(@RequestBody StudentClass updatedStudentClass, @PathVariable long classId){
         stud_ser.updateStudentClass(updatedStudentClass, classId);
     }

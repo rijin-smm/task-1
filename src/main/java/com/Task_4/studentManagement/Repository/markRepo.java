@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface markRepo extends MongoRepository<Mark, Long> {
     List<Mark> findByStudentId(long studentId);
+    List<Mark> findAll();
 }

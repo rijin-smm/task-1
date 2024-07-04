@@ -11,5 +11,6 @@ public interface StudentRepo extends MongoRepository<Student,Long> {
 
 //    List<Student> findTop3ByOrderByRankAsc();
     Student findByStudentName(String studentName);
-//    List<Student> findByRank(String rank);
+    List<Student> findByClassId(long classId);
+    List<Student> findAll();
 }

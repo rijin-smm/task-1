@@ -1,5 +1,6 @@
 package com.Task_4.studentManagement.Controller;
 
+import com.Task_4.studentManagement.Model.HighestScoreStudentDTO;
 import com.Task_4.studentManagement.Model.Student;
 import com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService;
 import com.Task_4.studentManagement.Service.Interface.studentService;
@@ -43,9 +44,9 @@ public class studentController {
         return ss.getStudentByname(studentName);
     }
 
-//    @GetMapping("/students/firstRanked")
-//    public List<Student> getStudentsWithFirstRank() {
-//        return ss.getStudentsWithFirstRank();
-//    }
+    @GetMapping("/students/firstRanked")
+    public List<HighestScoreStudentDTO> getStudentsWithFirstRank() {
+        return ss.getStudentsWithFirstRank();
+    }
 
 }

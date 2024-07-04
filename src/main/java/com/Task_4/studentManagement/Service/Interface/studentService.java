@@ -1,5 +1,6 @@
 package com.Task_4.studentManagement.Service.Interface;
 
+import com.Task_4.studentManagement.Model.HighestScoreStudentDTO;
 import com.Task_4.studentManagement.Model.Student;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public interface studentService {
     void updateStudent(Student updatedStudent, long id);
 //    List<Student> getTop3Student();
     Student getStudentByname(String studentName);
-//    List<Student> getStudentsWithFirstRank();
+    List<HighestScoreStudentDTO> getStudentsWithFirstRank();
 
 }
