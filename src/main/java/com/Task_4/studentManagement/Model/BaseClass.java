@@ -1,9 +1,11 @@
 package com.Task_4.studentManagement.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "BaseClass")
 public class BaseClass {
-    @Id
+
     private long studentId;
     private long classId;
     private int rollNumber;

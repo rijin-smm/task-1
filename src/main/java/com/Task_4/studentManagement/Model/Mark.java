@@ -12,10 +12,14 @@ public class Mark {
 
     @Id
     private long markId;
+    private double marks;
+
 
     private long studentId;
+
     private long subjectId;
-    private double marks;
+
+
 
     public Mark() {
     }
