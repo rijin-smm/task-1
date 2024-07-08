@@ -1,11 +1,14 @@
 package com.Task_4.studentManagement.Controller;
 
+import com.Task_4.studentManagement.DTO.classMarkDTO;
+import com.Task_4.studentManagement.DTO.studentMarksDTO;
 import com.Task_4.studentManagement.Model.Mark;
 import com.Task_4.studentManagement.Service.Interface.markService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class markController {
@@ -37,10 +40,26 @@ public class markController {
         ms.updateMark(newMark, markId);
     }
 
+    @GetMapping("/updateMark/{id}")
+    public Optional<Mark> getMarkById(@PathVariable long id) {
+        return ms.getMarkById(id);
+    }
 
     @GetMapping("/marks/student/{studentName}")
     public List<Mark> getMarksByStudentName(
             @PathVariable String studentName) {
         return ms.getMarksByStudentName(studentName);
+    }
+
+    @GetMapping(path = "/studentsMarks")
+    public List<studentMarksDTO> getAllStudentMarks(){
+        return ms.getAllStudentMarks();
+
+    }
+
+    @GetMapping(path = "studentClass/{id}")
+    public List<Mark> getMarksByStudentClassId(@PathVariable long id){
+        return ms.getMarksByStudentClassId(id);
+
     }
 }

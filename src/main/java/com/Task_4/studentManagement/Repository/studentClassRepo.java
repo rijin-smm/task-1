@@ -1,11 +1,7 @@
 package com.Task_4.studentManagement.Repository;
 
-import com.Task_4.studentManagement.Model.Mark;
-import com.Task_4.studentManagement.Model.StudentClass;
+import com.Task_4.studentManagement.Model.studentClass;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface studentClassRepo extends MongoRepository<StudentClass,Long> {
-//    StudentClass findByStudentClassId(String studentClassId);
+public interface studentClassRepo extends MongoRepository<studentClass,Long> {
 }

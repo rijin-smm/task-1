@@ -1,5 +1,6 @@
 package com.Task_4.studentManagement.Controller;
 
+import com.Task_4.studentManagement.DTO.studentMarksDTO;
 import com.Task_4.studentManagement.Model.HighestScoreStudentDTO;
 import com.Task_4.studentManagement.Model.Student;
 import com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService;
@@ -30,7 +31,7 @@ public class studentController {
     }
 //
     @DeleteMapping(path = "/student/{id}")
-    public void deleteStudent(@PathVariable("id") long id){
+    public void deleteStudent(@PathVariable long id){
         ss.deleteStudent(id);
     }
 
@@ -40,13 +41,15 @@ public class studentController {
 //    }
 
     @GetMapping(path = "/student/{studentName}")
-    Student getStudentByName(@PathVariable String studentName){
+    public Student getStudentByName(@PathVariable String studentName){
         return ss.getStudentByname(studentName);
     }
+//
+//    @GetMapping("/students/firstRanked")
+//    public List<HighestScoreStudentDTO> getStudentsWithFirstRank() {
+//        return ss.getStudentsWithFirstRank();
+//    }
 
-    @GetMapping("/students/firstRanked")
-    public List<HighestScoreStudentDTO> getStudentsWithFirstRank() {
-        return ss.getStudentsWithFirstRank();
-    }
 
+//
 }

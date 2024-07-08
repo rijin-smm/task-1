@@ -12,6 +12,6 @@ public interface studentService {
     void updateStudent(Student updatedStudent, long id);
 //    List<Student> getTop3Student();
     Student getStudentByname(String studentName);
-    List<HighestScoreStudentDTO> getStudentsWithFirstRank();
+//    List<HighestScoreStudentDTO> getStudentsWithFirstRank();
 
 }

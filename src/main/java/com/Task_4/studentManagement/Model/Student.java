@@ -2,6 +2,7 @@ package com.Task_4.studentManagement.Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "student")
@@ -13,14 +14,26 @@ public class Student {
     @Id
     private long id;
     private String studentName;
-    private long classId;
+    private int age;
+
+    @DBRef
+    private BaseClass baseClass;
 
     public Student() {
     }
 
-    public Student(String studentName, long classId) {
+    public Student(String studentName,int age, BaseClass baseClass) {
         this.studentName = studentName;
-        this.classId = classId;
+        this.age = age;
+        this.baseClass = baseClass;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public long getId() {
@@ -39,11 +52,12 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public long getClassId() {
-        return classId;
+
+    public com.Task_4.studentManagement.Model.BaseClass getBaseClass() {
+        return baseClass;
     }
 
-    public void setClassId(long classId) {
-        this.classId = classId;
+    public void setBaseClass(BaseClass baseClass) {
+        this.baseClass = baseClass;
     }
 }

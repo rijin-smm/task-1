@@ -5,29 +5,25 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "marks")
-public class Mark {
+@Document(collection = "studentClass")
+public class studentClass {
 
     @Transient
-    public static final String SEQUENCE_NAME = "mark_sequence";
+    public static final String SEQUENCE_NAME = "student_sequence";
 
     @Id
     private long id;
-    private double marks;
+
+    private int rollNumber;
+    private int rank;
 
     @DBRef
     private Student student;
 
-    @DBRef
-    private Subject subject;
-
-    public Mark() {
-    }
-
-    public Mark(Subject subject, double marks, Student student) {
-        this.subject = subject;
-        this.marks = marks;
+    public studentClass(Student student, int rollNumber, int rank) {
         this.student = student;
+        this.rollNumber = rollNumber;
+        this.rank = rank;
     }
 
     public long getId() {
@@ -38,12 +34,20 @@ public class Mark {
         this.id = id;
     }
 
-    public double getMarks() {
-        return marks;
+    public int getRollNumber() {
+        return rollNumber;
     }
 
-    public void setMarks(double marks) {
-        this.marks = marks;
+    public void setRollNumber(int rollNumber) {
+        this.rollNumber = rollNumber;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public Student getStudent() {
@@ -54,12 +58,5 @@ public class Mark {
         this.student = student;
     }
 
-    public Subject getSubject() {
-        return subject;
-    }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
 }
-

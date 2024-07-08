@@ -22,9 +22,9 @@ public class baseClassController {
 
     }
 
-    @PutMapping(path = "/baseClass/update/{studentId}/{classId}")
-    public void updateBaseClass(@PathVariable long studentId, @PathVariable long classId, @RequestBody BaseClass updatedBaseClass) {
-        bs.updateBaseClass(studentId, classId, updatedBaseClass);
+    @PutMapping(path = "/baseClass/update/{id}")
+    public void updateBaseClass(@PathVariable long id, @RequestBody BaseClass updatedBaseClass) {
+        bs.updateBaseClass(id, updatedBaseClass);
     }
 
 }

@@ -1,52 +1,53 @@
 package com.Task_4.studentManagement.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "BaseClass")
+@Document(collection = "base_class")
 public class BaseClass {
 
-    private long studentId;
-    private long classId;
-    private int rollNumber;
-    private int rank;
+    @Transient
+    public static final String SEQUENCE_NAME = "BaseClass_sequence";
 
-    public BaseClass(long classId, long studentId, int rollNumber, int rank) {
-        this.classId = classId;
-        this.studentId = studentId;
-        this.rollNumber = rollNumber;
-        this.rank = rank;
+    @Id
+    private long id;
+    private String className;
+
+    @DBRef
+    private Teacher teacher;
+
+    public BaseClass() {
     }
 
-    public long getClassId() {
-        return classId;
+    public BaseClass(long id, Teacher teacher, String className) {
+        this.id = id;
+        this.teacher = teacher;
+        this.className = className;
     }
 
-    public void setClassId(long classId) {
-        this.classId = classId;
+    public long getId() {
+        return id;
     }
 
-    public long getStudentId() {
-        return studentId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
+    public String getClassName() {
+        return className;
     }
 
-    public int getRollNumber() {
-        return rollNumber;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
-    public void setRollNumber(int rollNumber) {
-        this.rollNumber = rollNumber;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

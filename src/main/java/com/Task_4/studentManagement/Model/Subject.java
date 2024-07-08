@@ -12,23 +12,21 @@ public class Subject {
     public static final String SEQUENCE_NAME = "subject_sequence";
 
     @Id
-    private long subjectId;
+    private long id;
     private String subjectName;
 
-    public Subject(long subjectId, String subjectName) {
-        this.subjectId = subjectId;
+    public Subject(long id, String subjectName) {
+        this.id = id;
         this.subjectName = subjectName;
     }
 
-    public long getSubjectId() {
-        return subjectId;
+    public long getId() {
+        return id;
     }
 
-    public void setSubjectId(long subjectId) {
-        this.subjectId = subjectId;
+    public void setId(long id) {
+        this.id = id;
     }
-
-
 
     public String getSubjectName() {
         return subjectName;

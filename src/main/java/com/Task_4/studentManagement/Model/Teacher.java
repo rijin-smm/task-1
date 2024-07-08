@@ -13,28 +13,26 @@ public class Teacher {
     public static final String SEQUENCE_NAME = "teacher_sequence";
 
     @Id
-    private long teacherId;
+    private long id;
     private String teacherName;
     private List<Long> teacherSubject;
-
 
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String teacherName, List<Long> teacherSubject) {
+    public Teacher(long id, String teacherName, List<Long> teacherSubject) {
         super();
-        this.teacherId = teacherId;
+        this.id = id;
         this.teacherName = teacherName;
         this.teacherSubject = teacherSubject;
     }
 
-
-    public long getTeacherId() {
-        return teacherId;
+    public long getId() {
+        return id;
     }
 
-    public void setTeacherId(long teacherId) {
-        this.teacherId = teacherId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTeacherName() {

@@ -27,7 +27,7 @@ public class subjectServiceImpl implements subjectService {
 
     @Override
     public void createNewSubject(Subject newSubject) {
-        newSubject.setSubjectId(sequenceGeneratorService.generateSequence(newSubject.SEQUENCE_NAME));
+        newSubject.setId(sequenceGeneratorService.generateSequence(newSubject.SEQUENCE_NAME));
         subj_rep.save(newSubject);
     }
 

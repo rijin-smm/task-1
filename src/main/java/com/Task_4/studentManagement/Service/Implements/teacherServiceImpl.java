@@ -20,7 +20,6 @@ public class teacherServiceImpl implements teacherService {
 
     @Autowired
     private subjectRepo sr;
-    private List<Teacher> teachers = new ArrayList<>();
 
     @Autowired
     private com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService sequenceGeneratorService;
@@ -32,7 +31,7 @@ public class teacherServiceImpl implements teacherService {
 
     @Override
     public void createTeacher(Teacher newTeacher) {
-        newTeacher.setTeacherId(sequenceGeneratorService.generateSequence(newTeacher.SEQUENCE_NAME));
+        newTeacher.setId(sequenceGeneratorService.generateSequence(newTeacher.SEQUENCE_NAME));
         tr.save(newTeacher);
     }
 
@@ -54,7 +53,7 @@ public class teacherServiceImpl implements teacherService {
     public List<Teacher> getTeachersBySubjectName(String subjectName) {
         Optional<Subject> subjectOpt = sr.findBySubjectName(subjectName);
         if (subjectOpt.isPresent()) {
-            long subjectId = subjectOpt.get().getSubjectId();
+            long subjectId = subjectOpt.get().getId();
             return tr.findByTeacherSubjectContaining(subjectId);
         }
         return List.of(); // Return an empty list if subject is not found
