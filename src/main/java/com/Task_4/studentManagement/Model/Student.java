@@ -16,16 +16,12 @@ public class Student {
     private String studentName;
     private int age;
 
-    @DBRef
-    private BaseClass baseClass;
-
     public Student() {
     }
 
-    public Student(String studentName,int age, BaseClass baseClass) {
+    public Student(String studentName,int age) {
         this.studentName = studentName;
         this.age = age;
-        this.baseClass = baseClass;
     }
 
     public int getAge() {
@@ -52,12 +48,4 @@ public class Student {
         this.studentName = studentName;
     }
 
-
-    public com.Task_4.studentManagement.Model.BaseClass getBaseClass() {
-        return baseClass;
-    }
-
-    public void setBaseClass(BaseClass baseClass) {
-        this.baseClass = baseClass;
-    }
 }

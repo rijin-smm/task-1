@@ -66,6 +66,7 @@ public class markServiceImpl implements markService {
         return mr.findByStudentId(student.getId());
     }
 
+
     @Override
     public Optional<Mark> getMarkById(long id) {
         Optional<Mark> mark= mr.findById(id);

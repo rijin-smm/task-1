@@ -59,7 +59,6 @@ public class studentServiceImpl implements studentService {
         if(student.isPresent()){
             Student existingStudent = student.get();
             existingStudent.setStudentName(updatedStudent.getStudentName());
-            existingStudent.setBaseClass(updatedStudent.getBaseClass());
             sr.save(existingStudent);
         }
         else{
