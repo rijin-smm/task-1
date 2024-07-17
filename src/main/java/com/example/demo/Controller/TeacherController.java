@@ -3,11 +3,14 @@ package com.example.demo.Controller;
 import com.example.demo.Model.Teacher;
 import com.example.demo.Service.Interface.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Validated
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
@@ -18,7 +21,7 @@ public class TeacherController {
     }
 
     @PostMapping(path = "/teacher")
-    public void createTeacher(@RequestBody Teacher newTeacher){
+    public void createTeacher(@Valid @RequestBody Teacher newTeacher){
         teacherService.createTeacher(newTeacher);
     }
 
@@ -28,12 +31,12 @@ public class TeacherController {
     }
     //
     @PutMapping(path = "/teacher/{teacherId}")
-    public void updateTeacher(@RequestBody Teacher updatedTeacher, @PathVariable long teacherId){
+    public void updateTeacher(@Valid @RequestBody Teacher updatedTeacher, @PathVariable long teacherId){
         teacherService.updateTeacher(updatedTeacher,teacherId);
     }
 
-//    @GetMapping("/teachers/subject/{subjectName}")
-//    public List<Teacher> getTeachersBySubjectName(@PathVariable String subjectName) {
-//        return teacherService.getTeachersBySubjectName(subjectName);
-//    }
+    @GetMapping("/teachers/subject/{subjectName}")
+    public List<Teacher> getTeachersBySubjectName(@PathVariable String subjectName) {
+        return teacherService.getTeachersBySubjectName(subjectName);
+    }
 }

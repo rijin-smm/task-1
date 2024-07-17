@@ -10,5 +10,5 @@ public interface TeacherService {
     void createTeacher(Teacher newTeacher);
     void deleteTeacher(long teacherId);
     void updateTeacher(Teacher updatedTeacher, long teacherId);
-//    List<Teacher> getTeachersBySubjectName(String subjectName);
+    List<Teacher> getTeachersBySubjectName(String subjectName);
 }

@@ -24,11 +24,11 @@ public class StudentClass {
     private int rollNumber;
     private int rank;
 
-//    @Temporal(TemporalType.DATE)
-//    private Date classJoining;
-//
-//    @Temporal(TemporalType.DATE)
-//    private Date classEnding;
+    @Temporal(TemporalType.DATE)
+    private Date classJoining;
+
+    @Temporal(TemporalType.DATE)
+    private Date classEnding;
 
 
     @ManyToOne

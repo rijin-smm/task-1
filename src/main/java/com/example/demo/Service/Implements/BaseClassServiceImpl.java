@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class BaseClassServiceImpl implements BaseClassService {
     private BaseClassRepo baseClassRepo;
 
     @Override
-    public void addBaseClassStudent(BaseClass baseClass){
+    public void addBaseClassStudent(@Valid BaseClass baseClass){
         baseClassRepo.save(baseClass);
     }
 
@@ -26,7 +27,7 @@ public class BaseClassServiceImpl implements BaseClassService {
         return baseClassRepo.findAll();
     }
 
-    public void updateBaseClass(long id, BaseClass updatedBaseClass) {
+    public void updateBaseClass(@Valid long id, BaseClass updatedBaseClass) {
         Optional<BaseClass> baseClass= baseClassRepo.findById(id);
         if(baseClass.isPresent()){
             BaseClass existingBaseClass = baseClass.get();

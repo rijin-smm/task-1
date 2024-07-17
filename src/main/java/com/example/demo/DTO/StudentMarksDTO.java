@@ -14,5 +14,6 @@ import java.util.Map;
 public class StudentMarksDTO {
     private String studentName;
     private String ClassName;
+    private Double avgMark;
     private Map<String, Double> marks;
 }

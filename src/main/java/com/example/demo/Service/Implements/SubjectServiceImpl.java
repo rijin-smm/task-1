@@ -6,6 +6,7 @@ import com.example.demo.Service.Interface.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -20,7 +21,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public void createNewSubject(Subject newSubject) {
+    public void createNewSubject(@Valid Subject newSubject) {
         subjectRepo.save(newSubject);
     }
 
@@ -30,7 +31,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject updateSubject(Subject subjectDetails, long subjectId ) {
+    public Subject updateSubject(@Valid Subject subjectDetails, long subjectId ) {
         Subject subject = subjectRepo.findById(subjectId).orElseThrow();
         subject.setSubjectName(subjectDetails.getSubjectName());
         return subjectRepo.save(subject);

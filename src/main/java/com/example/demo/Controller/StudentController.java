@@ -4,18 +4,21 @@ package com.example.demo.Controller;
 import com.example.demo.Model.Student;
 import com.example.demo.Service.Interface.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Validated
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
     @PostMapping(path = "/student")
-    public void addStudent(@RequestBody Student student){
+    public void addStudent(@RequestBody @Valid Student student){
         studentService.addStudent(student);
     }
 
@@ -25,7 +28,7 @@ public class StudentController {
     }
 //
     @PutMapping(path = "/student/{id}")
-    public void updateStudent(@RequestBody Student updatedStudent, @PathVariable long id){
+    public void updateStudent(@RequestBody @Valid Student updatedStudent, @PathVariable long id){
         studentService.updateStudent(updatedStudent,id);
     }
 

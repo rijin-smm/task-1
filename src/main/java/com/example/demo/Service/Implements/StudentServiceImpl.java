@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +23,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void addStudent(Student newStudent){
+    public void addStudent(@Valid Student newStudent){
         studentRepo.save(newStudent);
     }
 
     @Override
-    public void updateStudent(Student updatedStudent, long id) {
+    public void updateStudent(@Valid Student updatedStudent, long id) {
         Optional<Student> student = studentRepo.findById(id);
         if(student.isPresent()){
             Student existingStudent = student.get();

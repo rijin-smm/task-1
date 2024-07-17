@@ -1,18 +1,22 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.AllStudentsMarksDTO;
+import com.example.demo.DTO.MarkDTO;
 import com.example.demo.DTO.StudentMarksDTO;
 import com.example.demo.Model.Mark;
 import com.example.demo.Service.Interface.MarkService;
 import com.example.demo.Service.Interface.StudentClassService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@Validated
 public class MarkController {
     @Autowired
     private MarkService markService;
@@ -26,7 +30,7 @@ public class MarkController {
     }
 
     @PostMapping(path = "/mark")
-    public void addMark(@RequestBody Mark mark){
+    public void addMark(@Valid @RequestBody Mark mark){
         markService.addMark(mark);
 
     }
@@ -41,10 +45,17 @@ public class MarkController {
         markService.updateMark(newMark, markId);
     }
 
-    @GetMapping("/mark/{id}")
-    public Optional<Mark> getMarkById(@PathVariable long id) {
-        return markService.getMarkById(id);
+
+//have to modify this below code
+    @GetMapping("/marks/subject/{subjectId}/class/{classId}")
+    public ResponseEntity<List<MarkDTO>> getMarksBySubjectAndClass(@PathVariable long subjectId, @PathVariable long classId) {
+        List<MarkDTO> marks = markService.getMarksBySubjectAndClass(subjectId, classId);
+        return ResponseEntity.ok(marks);
+
     }
+
+
+
 
     @GetMapping("/marks/student/{studentName}")
     public StudentMarksDTO getMarksByStudentName(
@@ -59,7 +70,7 @@ public class MarkController {
     }
 
     @GetMapping(path = "allStudentClassMarks/{id}")
-    public List<Mark> getMarksByStudentClassId(@PathVariable long id){
+    public List<AllStudentsMarksDTO> getMarksByStudentClassId(@PathVariable long id){
         return markService.getMarksByStudentClassId(id);
 
     }

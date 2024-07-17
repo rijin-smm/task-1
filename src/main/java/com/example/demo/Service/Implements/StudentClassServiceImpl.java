@@ -6,6 +6,8 @@ import com.example.demo.Service.Interface.StudentClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,8 @@ public class StudentClassServiceImpl implements StudentClassService {
     }
 
     @Override
-    public void createNewStudentClass(StudentClass newStudentClass) {
+    public void createNewStudentClass(@Valid StudentClass newStudentClass) {
+        newStudentClass.setClassJoining(new Date());
         studentClassRepo.save(newStudentClass);
 
     }
@@ -33,7 +36,7 @@ public class StudentClassServiceImpl implements StudentClassService {
     }
 
     @Override
-    public void updateStudentClass(StudentClass updatedStudentClass, long id) {
+    public void updateStudentClass(@Valid StudentClass updatedStudentClass, long id) {
         Optional<StudentClass> optionalStudentClass = studentClassRepo.findById(id);
         if(optionalStudentClass.isPresent()){
             StudentClass existingStudentClass = optionalStudentClass.get();

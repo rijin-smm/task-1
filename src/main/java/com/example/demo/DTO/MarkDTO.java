@@ -5,17 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class AllStudentsMarksDTO {
-    private Long studentId;
+@AllArgsConstructor
+public class MarkDTO {
+    private String subjectName;
     private String studentName;
-    private int age;
     private String className;
-    private Double avgMark;
-    private Map<String, Double> marks;
+    private Double marks;
+
 }
