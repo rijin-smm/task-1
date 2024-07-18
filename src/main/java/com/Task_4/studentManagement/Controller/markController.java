@@ -3,14 +3,17 @@ package com.Task_4.studentManagement.Controller;
 import com.Task_4.studentManagement.DTO.classMarkDTO;
 import com.Task_4.studentManagement.DTO.studentMarksDTO;
 import com.Task_4.studentManagement.Model.Mark;
+import com.Task_4.studentManagement.Model.Student;
 import com.Task_4.studentManagement.Service.Interface.markService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
+@Validated
 public class markController {
 
     @Autowired
@@ -25,28 +28,28 @@ public class markController {
     }
 
     @PostMapping(path = "/mark")
-    public void addMark(@RequestBody Mark mark){
+    public void addMark(@Valid @RequestBody Mark mark){
         ms.addMark(mark);
 
     }
 
     @DeleteMapping(path = "/mark/{markId}")
-    public void deleteMark(@PathVariable long markId){
+    public void deleteMark(@Valid @PathVariable long markId){
         ms.deleteMark(markId);
     }
 //
     @PutMapping(path = "/mark/{markId}")
-    public void updateMark(@RequestBody Mark newMark, @PathVariable long markId){
+    public void updateMark(@Valid  @RequestBody Mark newMark, @PathVariable long markId){
         ms.updateMark(newMark, markId);
     }
 
-    @GetMapping("/updateMark/{id}")
+    @GetMapping("/getMark/{id}")
     public Optional<Mark> getMarkById(@PathVariable long id) {
         return ms.getMarkById(id);
     }
 
     @GetMapping("/marks/student/{studentName}")
-    public List<Mark> getMarksByStudentName(
+    public studentMarksDTO getMarksByStudentName(
             @PathVariable String studentName) {
         return ms.getMarksByStudentName(studentName);
     }
@@ -58,8 +61,13 @@ public class markController {
     }
 
     @GetMapping(path = "studentClass/{id}")
-    public List<Mark> getMarksByStudentClassId(@PathVariable long id){
+    public List<studentMarksDTO> getMarksByStudentClassId(@PathVariable long id){
         return ms.getMarksByStudentClassId(id);
 
     }
 }
+
+
+
+
+

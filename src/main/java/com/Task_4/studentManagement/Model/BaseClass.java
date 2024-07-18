@@ -1,5 +1,9 @@
 package com.Task_4.studentManagement.Model;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -13,9 +17,15 @@ public class BaseClass {
 
     @Id
     private long id;
+
+    @NotEmpty(message = "Class name must not be empty")
+    @NotNull(message = "Class name must not be empty")
     private String className;
 
     @DBRef
+    @NotNull(message = "Teacher must not be null")
+    @NotBlank(message = "Teacher must not be null")
+    @Valid
     private Teacher teacher;
 
     public BaseClass() {

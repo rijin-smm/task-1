@@ -5,17 +5,21 @@ import java.util.Map;
 public class studentMarksDTO {
     private long studentId;
     private String studentName;
+    private String className;
     private int age;
+    private Double avgMark;
     private Map<String ,Double> marks;
 
     public studentMarksDTO() {
     }
 
-    public studentMarksDTO(long studentId, String studentName, int age, Map<String ,Double> marks) {
+    public studentMarksDTO(String className,long studentId, String studentName, int age, Map<String ,Double> marks, Double avgMark) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.age = age;
         this.marks = marks;
+        this.avgMark = avgMark;
+        this.className = className;
     }
 
     public long getStudentId() {
@@ -48,5 +52,21 @@ public class studentMarksDTO {
 
     public void setMarks(Map<String, Double> marks) {
         this.marks = marks;
+    }
+
+    public Double getAvgMark() {
+        return avgMark;
+    }
+
+    public void setAvgMark(Double avgMark) {
+        this.avgMark = avgMark;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

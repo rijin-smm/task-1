@@ -8,6 +8,8 @@ import com.Task_4.studentManagement.Repository.baseClassRepo;
 import com.Task_4.studentManagement.Repository.markRepo;
 import com.Task_4.studentManagement.Repository.studentClassRepo;
 import com.Task_4.studentManagement.Service.Interface.studentService;
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,12 +17,14 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 public class studentServiceImpl implements studentService {
 
 
@@ -48,13 +52,13 @@ public class studentServiceImpl implements studentService {
     }
 
     @Override
-    public void addStudent(Student newStudent){
+    public void addStudent(@Valid Student newStudent){
         newStudent.setId(sequenceGeneratorService.generateSequence(newStudent.SEQUENCE_NAME));
         sr.save(newStudent);
     }
 
     @Override
-    public void updateStudent(Student updatedStudent, long id) {
+    public void updateStudent(@Valid Student updatedStudent, long id) {
         Optional<Student> student = sr.findById(id);
         if(student.isPresent()){
             Student existingStudent = student.get();
@@ -73,7 +77,11 @@ public class studentServiceImpl implements studentService {
 
     @Override
     public Student getStudentByname(String studentName) {
-        return sr.findByStudentName(studentName);
+        Student student = sr.findByStudentName(studentName);
+        if (student == null){
+            throw new ResourceNotFoundException("student name "+ studentName +" is not found");
+        }
+        return student;
     }
 
 //    @Override

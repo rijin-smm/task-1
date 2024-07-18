@@ -1,9 +1,14 @@
 package com.Task_4.studentManagement.Model;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+
 
 @Document(collection = "marks")
 public class Mark {
@@ -13,12 +18,18 @@ public class Mark {
 
     @Id
     private long id;
+
+    @NotNull(message = "Marks must not be null")
     private double marks;
 
     @DBRef
+    @NotNull(message = "Student must not be null")
+    @Valid
     private Student student;
 
     @DBRef
+    @NotNull(message = "Subject must not be null")
+    @Valid
     private Subject subject;
 
     public Mark() {

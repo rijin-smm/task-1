@@ -3,15 +3,18 @@ package com.Task_4.studentManagement.Service.Implements;
 import com.Task_4.studentManagement.Model.BaseClass;
 import com.Task_4.studentManagement.Repository.baseClassRepo;
 import com.Task_4.studentManagement.Service.Interface.baseClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 public class baseClassServiceImpl implements baseClassService {
 
     @Autowired
@@ -22,7 +25,7 @@ public class baseClassServiceImpl implements baseClassService {
 
 
     @Override
-    public void addBaseClassStudent(BaseClass baseClass){
+    public void addBaseClassStudent(@Valid BaseClass baseClass){
         baseClass.setId(sequenceGeneratorService.generateSequence(baseClass.SEQUENCE_NAME));
         br.save(baseClass);
     }
@@ -32,7 +35,7 @@ public class baseClassServiceImpl implements baseClassService {
         return br.findAll();
     }
 
-    public void updateBaseClass(long id, BaseClass updatedBaseClass) {
+    public void updateBaseClass(@Valid long id, BaseClass updatedBaseClass) {
         Optional<BaseClass> baseClass= br.findById(id);
         if(baseClass.isPresent()){
             BaseClass existingBaseClass = baseClass.get();

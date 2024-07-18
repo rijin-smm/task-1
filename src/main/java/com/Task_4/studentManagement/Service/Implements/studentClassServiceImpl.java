@@ -7,10 +7,13 @@ import com.Task_4.studentManagement.Repository.StudentRepo;
 import com.Task_4.studentManagement.Repository.baseClassRepo;
 import com.Task_4.studentManagement.Repository.studentClassRepo;
 import com.Task_4.studentManagement.Service.Interface.studentClassService;
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 public class studentClassServiceImpl implements studentClassService {
 
     @Autowired
@@ -38,7 +42,7 @@ public class studentClassServiceImpl implements studentClassService {
     }
 
     @Override
-    public void createNewStudentClass(studentClass newStudentClass) {
+    public void createNewStudentClass(@Valid studentClass newStudentClass) {
         newStudentClass.setId(sequenceGeneratorService.generateSequence(newStudentClass.SEQUENCE_NAME));
         sc_repo.save(newStudentClass);
 
@@ -50,7 +54,7 @@ public class studentClassServiceImpl implements studentClassService {
     }
 
     @Override
-    public void updateStudentClass(studentClass updatedStudentClass, long id) {
+    public void updateStudentClass(@Valid studentClass updatedStudentClass, long id) {
         Optional <studentClass> studentclass = sc_repo.findById(id);
         if(studentclass.isPresent()){
             studentClass existingStudentClass = studentclass.get();
@@ -133,30 +137,30 @@ public class studentClassServiceImpl implements studentClassService {
 
 
 
-
-    @Override
-    public void moveStudentToNewClass(long studentId, BaseClass baseClass, int rollNumber, int rank, Date joiningDate) {
-        // Find the current active class for the student
-        studentClass currentClass = sc_repo.findFirstByStudentIdAndClassLeavingDateIsNullOrderByClassJoiningDateDesc(studentId);
-
-        if (currentClass != null) {
-            // Update the leaving date of the current class
-            currentClass.setClassLeavingDate(new Date());
-            sc_repo.save(currentClass);
-        }
-
-        // Create a new StudentClass object for the new class
-        Student student = sr.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
-        BaseClass newBaseClass = br.findById(baseClass.getId()).orElseThrow(() -> new RuntimeException("BaseClass not found"));
-
-        studentClass newClass = new studentClass();
-        newClass.setStudent(student);
-        newClass.setBaseClass(newBaseClass);
-        newClass.setRollNumber(rollNumber);
-        newClass.setRank(rank);
-        newClass.setClassJoiningDate(joiningDate);
-        sc_repo.save(newClass);
-    }
+//
+//    @Override
+//    public void moveStudentToNewClass(long studentId, BaseClass baseClass, int rollNumber, int rank, Date joiningDate) {
+//        // Find the current active class for the student
+//        studentClass currentClass = sc_repo.findFirstByStudentIdAndClassLeavingDateIsNullOrderByClassJoiningDateDesc(studentId);
+//
+//        if (currentClass != null) {
+//            // Update the leaving date of the current class
+//            currentClass.setClassLeavingDate(new Date());
+//            sc_repo.save(currentClass);
+//        }
+//
+//        // Create a new StudentClass object for the new class
+//        Student student = sr.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+//        BaseClass newBaseClass = br.findById(baseClass.getId()).orElseThrow(() -> new RuntimeException("BaseClass not found"));
+//
+//        studentClass newClass = new studentClass();
+//        newClass.setStudent(student);
+//        newClass.setBaseClass(newBaseClass);
+//        newClass.setRollNumber(rollNumber);
+//        newClass.setRank(rank);
+//        newClass.setClassJoiningDate(joiningDate);
+//        sc_repo.save(newClass);
+//    }
 
 
     @Override
@@ -177,7 +181,7 @@ public class studentClassServiceImpl implements studentClassService {
 
             return studentDetailsDTO;
         } else {
-            return null; // Handle case where no classes found (optional based on your application logic)
+            throw new ResourceNotFoundException("the studentId : " + studentId + " is invalid");
         }
     }
 

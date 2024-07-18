@@ -1,5 +1,7 @@
 package com.Task_4.studentManagement.Model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,7 +16,13 @@ public class Teacher {
 
     @Id
     private long id;
+
+    @NotEmpty(message = "Teacher name must not be empty")
+    @NotNull(message = "Teacher name must not be empty")
     private String teacherName;
+
+
+    @NotEmpty(message = "Teacher subjects list must not be empty")
     private List<Long> teacherSubject;
 
     public Teacher() {

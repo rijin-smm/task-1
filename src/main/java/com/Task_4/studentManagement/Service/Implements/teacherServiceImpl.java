@@ -5,14 +5,18 @@ import com.Task_4.studentManagement.Model.Teacher;
 import com.Task_4.studentManagement.Repository.subjectRepo;
 import com.Task_4.studentManagement.Repository.teacherRepo;
 import com.Task_4.studentManagement.Service.Interface.teacherService;
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 public class teacherServiceImpl implements teacherService {
 
     @Autowired
@@ -30,7 +34,7 @@ public class teacherServiceImpl implements teacherService {
     }
 
     @Override
-    public void createTeacher(Teacher newTeacher) {
+    public void createTeacher(@Valid Teacher newTeacher) {
         newTeacher.setId(sequenceGeneratorService.generateSequence(newTeacher.SEQUENCE_NAME));
         tr.save(newTeacher);
     }
@@ -41,7 +45,7 @@ public class teacherServiceImpl implements teacherService {
     }
 //
     @Override
-    public void updateTeacher(Teacher updatedTeacher, long teacherId) {
+    public void updateTeacher(@Valid Teacher updatedTeacher, long teacherId) {
         tr.findById(teacherId).map(teacher -> {
             teacher.setTeacherName(updatedTeacher.getTeacherName());
             teacher.setTeacherSubject(updatedTeacher.getTeacherSubject());
@@ -51,12 +55,15 @@ public class teacherServiceImpl implements teacherService {
 
     @Override
     public List<Teacher> getTeachersBySubjectName(String subjectName) {
+
         Optional<Subject> subjectOpt = sr.findBySubjectName(subjectName);
         if (subjectOpt.isPresent()) {
             long subjectId = subjectOpt.get().getId();
             return tr.findByTeacherSubjectContaining(subjectId);
         }
-        return List.of(); // Return an empty list if subject is not found
+        else{
+            throw new ResourceNotFoundException("subject name "+ subjectName +" is not available");
+        }
     }
 
 }

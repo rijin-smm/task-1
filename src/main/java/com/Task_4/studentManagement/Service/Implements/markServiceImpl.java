@@ -2,19 +2,24 @@ package com.Task_4.studentManagement.Service.Implements;
 
 import com.Task_4.studentManagement.DTO.classMarkDTO;
 import com.Task_4.studentManagement.DTO.studentMarksDTO;
+import com.Task_4.studentManagement.Model.BaseClass;
 import com.Task_4.studentManagement.Model.Mark;
 import com.Task_4.studentManagement.Model.Student;
-import com.Task_4.studentManagement.Repository.StudentRepo;
-import com.Task_4.studentManagement.Repository.markRepo;
-import com.Task_4.studentManagement.Repository.subjectRepo;
+import com.Task_4.studentManagement.Model.studentClass;
+import com.Task_4.studentManagement.Repository.*;
 import com.Task_4.studentManagement.Service.Interface.markService;
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.w3c.dom.ls.LSInput;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class markServiceImpl implements markService {
 
     @Autowired
@@ -22,6 +27,12 @@ public class markServiceImpl implements markService {
 
     @Autowired
     private StudentRepo sr;
+
+    @Autowired
+    private baseClassRepo br;
+
+    @Autowired
+    private studentClassRepo sc_repo;
 
     @Autowired
     private subjectRepo subjectRepo;
@@ -35,7 +46,7 @@ public class markServiceImpl implements markService {
     }
 
     @Override
-    public void addMark(Mark mark) {
+    public void addMark(@Valid Mark mark) {
         mark.setId(sequenceGeneratorService.generateSequence(mark.SEQUENCE_NAME));
         mr.save(mark);
     }
@@ -46,8 +57,8 @@ public class markServiceImpl implements markService {
     }
 
     @Override
-    public void updateMark(Mark newMark, long markId) {
-        Optional<Mark> mark = mr.findById(markId);
+    public void updateMark(@Valid Mark newMark, long id) {
+        Optional<Mark> mark = mr.findById(id);
         if (mark.isPresent()){
             Mark existingMark = mark.get();
             existingMark.setMarks(newMark.getMarks());
@@ -58,20 +69,56 @@ public class markServiceImpl implements markService {
     }
 
     @Override
-    public List<Mark> getMarksByStudentName(String studentName) {
+    public studentMarksDTO getMarksByStudentName(String studentName) {
+        if (!studentName.matches("[a-zA-Z]+")) {
+            throw new IllegalArgumentException("Student name must be in string format");
+        }
         Student student= sr.findByStudentName(studentName);
         if (student == null) {
-            throw new IllegalArgumentException("Student with name " + studentName + " not found");
+            throw new ResourceNotFoundException("Student with name " + studentName + " not found");
         }
-        return mr.findByStudentId(student.getId());
-    }
 
+        studentMarksDTO studentMarksDTOs = new studentMarksDTO();
+        studentMarksDTOs.setStudentId(student.getId());
+        studentMarksDTOs.setStudentName(student.getStudentName());
+        studentMarksDTOs.setAge(student.getAge());
+
+        studentClass studentClassEntity = sc_repo.findByStudent(student);
+        if (studentClassEntity != null) {
+            // Fetch BaseClass using studentClass
+            BaseClass baseClass = studentClassEntity.getBaseClass();
+            if (baseClass != null) {
+                studentMarksDTOs.setClassName(baseClass.getClassName());
+            } else {
+                studentMarksDTOs.setClassName("Class not found");
+            }
+        } else {
+            studentMarksDTOs.setClassName("StudentClass not found");
+        }
+
+        Map<String, Double> marks = new HashMap<>();
+        List<Mark> studentMarksList = mr.findByStudent(student);
+        double totalMarks = 0;
+        int numberOfSubjects = studentMarksList.size();
+
+        for (Mark mark : studentMarksList) {
+            marks.put(mark.getSubject().getSubjectName(), mark.getMarks());
+            totalMarks += mark.getMarks();
+        }
+
+        double avgMark = numberOfSubjects > 0 ? totalMarks / numberOfSubjects : 0.0;
+        studentMarksDTOs.setAvgMark(avgMark);
+        studentMarksDTOs.setMarks(marks);
+
+        return studentMarksDTOs;
+
+    }
 
     @Override
     public Optional<Mark> getMarkById(long id) {
         Optional<Mark> mark= mr.findById(id);
-        if (mark == null) {
-            throw new IllegalArgumentException("Student with id " + id + " not found");
+        if (!mark.isPresent()) {
+            throw new ResourceNotFoundException("Student with id " + id + " not found");
         }
         return mark;
     }
@@ -87,12 +134,33 @@ public class markServiceImpl implements markService {
             studentMarksDTOs.setStudentName(student.getStudentName());
             studentMarksDTOs.setAge(student.getAge());
 
+            studentClass studentClassEntity = sc_repo.findByStudent(student);
+            if (studentClassEntity != null) {
+                // Fetch BaseClass using studentClass
+                BaseClass baseClass = studentClassEntity.getBaseClass();
+                if (baseClass != null) {
+                    studentMarksDTOs.setClassName(baseClass.getClassName());
+                } else {
+                    studentMarksDTOs.setClassName("Class not found");
+                }
+            } else {
+                studentMarksDTOs.setClassName("StudentClass not found");
+            }
+
+
             Map<String , Double> marks = new HashMap<>();
             List<Mark> studentMarksList = mr.findByStudent(student);
 
+            double totalMarks = 0;
+            int numberOfSubjects = studentMarksList.size();
+
             for (Mark mark : studentMarksList) {
                 marks.put(mark.getSubject().getSubjectName(), mark.getMarks());
+                totalMarks += mark.getMarks();
+
             }
+            double avgMark = numberOfSubjects > 0 ?totalMarks/numberOfSubjects : 0.0;
+            studentMarksDTOs.setAvgMark(avgMark);
             studentMarksDTOs.setMarks(marks);
 
             studentMarksDTOList.add(studentMarksDTOs);
@@ -100,17 +168,65 @@ public class markServiceImpl implements markService {
         return studentMarksDTOList;
     }
 
+    public  List<studentMarksDTO> getMarksByStudentClassId(long id){
+        Optional<BaseClass> baseClassOptional = br.findById(id);
+        System.out.println(baseClassOptional);
 
-    public  List<Mark> getMarksByStudentClassId(long id){
-        Optional<Student> optionalStudent = sr.findById(id);
+        if (!baseClassOptional.isPresent()) {
 
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            return mr.findByStudent(student);
-        } else {
-            // Handle scenario where student with given id is not found
-            return Collections.emptyList(); // or throw an exception
+            throw new ResourceNotFoundException("class id : " + id + " is not available");
         }
+
+        BaseClass baseClass = baseClassOptional.get();
+        List<studentClass> studentClasses = sc_repo.findByBaseClass(baseClass);
+        List<Long> studentIds = new ArrayList<>();
+
+        for (studentClass studentClass : studentClasses) {
+            studentIds.add(studentClass.getStudent().getId());
+        }
+
+        List<Student> students = sr.findByIdIn(studentIds);
+
+        List<studentMarksDTO> studentMarksDTOList = new ArrayList<>();
+
+        for (Student student : students) {
+            studentMarksDTO studentMarksDTOs = new studentMarksDTO();
+            studentMarksDTOs.setStudentId(student.getId());
+            studentMarksDTOs.setStudentName(student.getStudentName());
+            studentMarksDTOs.setAge(student.getAge());
+
+            studentClass studentClassEntity = sc_repo.findByStudent(student);
+            if (studentClassEntity != null) {
+                // Fetch BaseClass using studentClass
+                BaseClass baseClassEntity = studentClassEntity.getBaseClass();
+                if (baseClassEntity != null) {
+                    studentMarksDTOs.setClassName(baseClassEntity.getClassName());
+                } else {
+                    studentMarksDTOs.setClassName("Class not found");
+                }
+            } else {
+                studentMarksDTOs.setClassName("StudentClass not found");
+            }
+
+            Map<String, Double> marks = new HashMap<>();
+            List<Mark> studentMarksList = mr.findByStudent(student);
+
+            double totalMarks = 0;
+            int numberOfSubjects = studentMarksList.size();
+
+            for (Mark mark : studentMarksList) {
+                marks.put(mark.getSubject().getSubjectName(), mark.getMarks());
+                totalMarks += mark.getMarks();
+
+            }
+            double avgMark = numberOfSubjects > 0 ? totalMarks / numberOfSubjects : 0.0;
+            studentMarksDTOs.setAvgMark(avgMark);
+            studentMarksDTOs.setMarks(marks);
+
+            studentMarksDTOList.add(studentMarksDTOs);
+        }
+            return studentMarksDTOList;
+
     }
 
 

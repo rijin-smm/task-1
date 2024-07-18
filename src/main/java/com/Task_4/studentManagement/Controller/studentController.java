@@ -5,6 +5,7 @@ import com.Task_4.studentManagement.Model.HighestScoreStudentDTO;
 import com.Task_4.studentManagement.Model.Student;
 import com.Task_4.studentManagement.Service.Interface.sequenceGeneratorService;
 import com.Task_4.studentManagement.Service.Interface.studentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class studentController {
 
 
     @PostMapping(path = "/student")
-    public void addStudent(@RequestBody Student student){
+    public void addStudent(@Valid @RequestBody Student student){
         ss.addStudent(student);
     }
 
@@ -26,12 +27,12 @@ public class studentController {
     }
 
     @PutMapping(path = "/student/{id}")
-    public void updateStudent(@RequestBody Student updatedStudent, @PathVariable long id){
+    public void updateStudent(@Valid @RequestBody Student updatedStudent, @PathVariable long id){
         ss.updateStudent(updatedStudent,id);
     }
 //
     @DeleteMapping(path = "/student/{id}")
-    public void deleteStudent(@PathVariable long id){
+    public void deleteStudent(@Valid @PathVariable long id){
         ss.deleteStudent(id);
     }
 

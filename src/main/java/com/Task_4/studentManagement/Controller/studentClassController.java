@@ -5,15 +5,18 @@ import com.Task_4.studentManagement.DTO.StudentDetailsDTO;
 import com.Task_4.studentManagement.Model.BaseClass;
 import com.Task_4.studentManagement.Model.studentClass;
 import com.Task_4.studentManagement.Service.Interface.studentClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 @RestController
+@Validated
 public class studentClassController {
 
     @Autowired
@@ -25,31 +28,31 @@ public class studentClassController {
     }
 
     @PostMapping(path = "/studentClass")
-    public void createNewStudentClass(@RequestBody studentClass newStudentClass){
+    public void createNewStudentClass(@Valid @RequestBody studentClass newStudentClass){
         stud_ser.createNewStudentClass(newStudentClass);
     }
 
     @DeleteMapping(path = "/studentClass/{id}")
-    public void deleteStudentClass(@PathVariable long id){
+    public void deleteStudentClass(@Valid @PathVariable long id){
         stud_ser.deleteStudentClass(id);
     }
 
     @PutMapping(path = "/studentClass/{classId}")
-    public void updateStudentClass(@RequestBody studentClass updatedStudentClass, @PathVariable long id){
+    public void updateStudentClass(@Valid @RequestBody studentClass updatedStudentClass, @PathVariable long id){
         stud_ser.updateStudentClass(updatedStudentClass, id);
     }
 
-    @PostMapping("/move-to-class/{studentId}")
-    public ResponseEntity<String> moveStudentToNewClass(
-            @PathVariable("studentId") long studentId,
-            @RequestBody("baseClass") BaseClass baseClass,
-            @RequestParam("rollNumber") int rollNumber,
-            @RequestParam("rank") int rank,
-            @RequestParam("joiningDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date joiningDate) {
-
-        stud_ser.moveStudentToNewClass(studentId, baseClass, rollNumber, rank, joiningDate);
-        return ResponseEntity.ok("Student moved to new class successfully.");
-    }
+//    @PostMapping("/move-to-class/{studentId}")
+//    public ResponseEntity<String> moveStudentToNewClass(
+//            @PathVariable("studentId") long studentId,
+//            @RequestBody("baseClass") BaseClass baseClass,
+//            @RequestParam("rollNumber") int rollNumber,
+//            @RequestParam("rank") int rank,
+//            @RequestParam("joiningDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date joiningDate) {
+//
+//        stud_ser.moveStudentToNewClass(studentId, baseClass, rollNumber, rank, joiningDate);
+//        return ResponseEntity.ok("Student moved to new class successfully.");
+//    }
 
 
     @GetMapping("/details/{studentId}")

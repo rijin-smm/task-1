@@ -3,6 +3,9 @@ package com.Task_4.studentManagement.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -20,7 +23,11 @@ public class studentClass {
     @Id
     private long id;
 
+    @NotNull(message = "Roll number must not be null")
+    @Min(value = 1, message = "Roll number must be greater than 0")
     private int rollNumber;
+
+    @Min(value = 1, message = "rank number must be greater than 0")
     private int rank;
 
 //    @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -34,9 +41,13 @@ public class studentClass {
     private Date classLeavingDate;
 
     @DBRef
+    @NotNull(message = "Student must not be null")
+    @Valid
     private Student student;
 
     @DBRef
+    @NotNull(message = "BaseClass must not be null")
+    @Valid
     private BaseClass baseClass;
 
     public studentClass(int rollNumber, int rank, Date classJoiningDate, Date classLeavingDate, Student student, BaseClass baseClass) {
