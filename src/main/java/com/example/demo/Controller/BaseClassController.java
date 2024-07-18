@@ -2,11 +2,13 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.BaseClass;
 import com.example.demo.Service.Interface.BaseClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,8 +18,9 @@ public class BaseClassController {
     private BaseClassService baseClassService;
 
     @PostMapping(path = "/baseClass")
-    public void addBaseClassStudent(@Valid @RequestBody BaseClass baseClass){
+    public ResponseEntity<String> addBaseClassStudent(@Valid @RequestBody BaseClass baseClass){
         baseClassService.addBaseClassStudent(baseClass);
+        return ResponseEntity.ok("baseClass added successfully");
     }
 
     @GetMapping(path = "/baseClasses")

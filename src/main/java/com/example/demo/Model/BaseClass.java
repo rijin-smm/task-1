@@ -1,14 +1,18 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+//import javax.validation.Valid;
+//import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -22,6 +26,7 @@ public class BaseClass {
     private long id;
 
     @NotBlank(message = "Class name is required")
+    @NotNull(message = "Class name is required")
     @Size(max = 100, message = "Class name cannot exceed 100 characters")
     private String className;
 

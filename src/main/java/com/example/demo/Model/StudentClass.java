@@ -2,6 +2,7 @@ package com.example.demo.Model;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,11 +34,13 @@ public class StudentClass {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @Valid
     private Student student;
 
 
     @ManyToOne
     @JoinColumn(name = "base_class_id")
+    @Valid
     private BaseClass baseClass;
 
 }

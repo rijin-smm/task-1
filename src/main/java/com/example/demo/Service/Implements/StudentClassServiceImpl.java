@@ -1,12 +1,14 @@
 package com.example.demo.Service.Implements;
 
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
 import com.example.demo.Model.StudentClass;
 import com.example.demo.Repository.StudentClassRepo;
 import com.example.demo.Service.Interface.StudentClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +33,12 @@ public class StudentClassServiceImpl implements StudentClassService {
     }
 
     @Override
-    public void deleteStudentClass(long classId) {
-        studentClassRepo.deleteById(classId);
+    public void deleteStudentClass(long id) {
+        Optional<StudentClass> studentClass = studentClassRepo.findById(id);
+        if(!studentClass.isPresent()){
+            throw new ResourceNotFoundException("studentClass not found with id: " + id);
+        }
+        studentClassRepo.deleteById(id);
     }
 
     @Override
@@ -45,6 +51,9 @@ public class StudentClassServiceImpl implements StudentClassService {
             existingStudentClass.setRollNumber(updatedStudentClass.getRollNumber());
             existingStudentClass.setBaseClass(updatedStudentClass.getBaseClass());
             studentClassRepo.save(existingStudentClass);
+        }
+        else {
+            throw new ResourceNotFoundException("studentClass not found with id: " + id);
         }
     }
 

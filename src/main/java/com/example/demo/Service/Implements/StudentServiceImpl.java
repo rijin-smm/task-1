@@ -1,13 +1,15 @@
 package com.example.demo.Service.Implements;
 
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
 import com.example.demo.Model.Student;
 import com.example.demo.Repository.StudentRepo;
 import com.example.demo.Service.Interface.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,17 +39,25 @@ public class StudentServiceImpl implements StudentService {
             studentRepo.save(existingStudent);
         }
         else{
-            ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("Student not found with id: " + id);
         }
     }
 
     @Override
     public void deleteStudent(long id) {
+        Optional<Student> student = studentRepo.findById(id);
+        if (!student.isPresent()) {
+            throw new ResourceNotFoundException("Student not found with id: " + id);
+        }
         studentRepo.deleteById(id);
     }
 
     @Override
     public Student getStudentByname(String studentName) {
-        return studentRepo.findByStudentName(studentName);
+        Student student = studentRepo.findByStudentName(studentName);
+        if (student == null) {
+            throw new ResourceNotFoundException("Student not found with name: " + studentName);
+        }
+        return student;
     }
 }

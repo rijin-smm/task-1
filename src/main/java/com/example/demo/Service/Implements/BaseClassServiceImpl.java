@@ -1,13 +1,15 @@
 package com.example.demo.Service.Implements;
 
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
 import com.example.demo.Model.BaseClass;
 import com.example.demo.Repository.BaseClassRepo;
 import com.example.demo.Service.Interface.BaseClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +38,7 @@ public class BaseClassServiceImpl implements BaseClassService {
             baseClassRepo.save(existingBaseClass);
         }
         else{
-            ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("baseClass not found with id: " + id);
         }
     }
 }

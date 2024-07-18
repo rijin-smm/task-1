@@ -1,12 +1,14 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -25,10 +27,12 @@ public class Mark {
     @NotNull(message = "Student is required")
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @Valid
     private Student student;
 
     @NotNull(message = "Subject is required")
     @ManyToOne
     @JoinColumn(name = "subject_id")
+    @Valid
     private Subject subject;
 }

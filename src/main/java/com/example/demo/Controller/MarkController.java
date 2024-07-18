@@ -6,12 +6,13 @@ import com.example.demo.DTO.StudentMarksDTO;
 import com.example.demo.Model.Mark;
 import com.example.demo.Service.Interface.MarkService;
 import com.example.demo.Service.Interface.StudentClassService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,14 +36,14 @@ public class MarkController {
 
     }
 
-    @DeleteMapping(path = "/mark/{markId}")
-    public void deleteMark(@PathVariable long markId){
-        markService.deleteMark(markId);
+    @DeleteMapping(path = "/mark/{id}")
+    public void deleteMark(@PathVariable long id){
+        markService.deleteMark(id);
     }
     //
-    @PutMapping(path = "/mark/{markId}")
-    public void updateMark(@RequestBody Mark newMark, @PathVariable long markId){
-        markService.updateMark(newMark, markId);
+    @PutMapping(path = "/mark/{id}")
+    public void updateMark(@RequestBody Mark newMark, @PathVariable long id){
+        markService.updateMark(newMark, id);
     }
 
 

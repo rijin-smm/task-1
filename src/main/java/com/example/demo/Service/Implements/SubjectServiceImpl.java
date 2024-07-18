@@ -3,10 +3,11 @@ package com.example.demo.Service.Implements;
 import com.example.demo.Model.Subject;
 import com.example.demo.Repository.SubjectRepo;
 import com.example.demo.Service.Interface.SubjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 
 @Service

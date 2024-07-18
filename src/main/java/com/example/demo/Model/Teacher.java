@@ -1,13 +1,16 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -21,6 +24,7 @@ public class Teacher {
     private long id;
 
     @NotBlank(message = "Teacher name is required")
+    @NotNull(message = "Teacher name is required")
     @Size(max = 100, message = "Teacher name cannot exceed 100 characters")
     private String teacherName;
 

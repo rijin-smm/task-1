@@ -3,13 +3,15 @@ package com.example.demo.Service.Implements;
 import com.example.demo.DTO.AllStudentsMarksDTO;
 import com.example.demo.DTO.MarkDTO;
 import com.example.demo.DTO.StudentMarksDTO;
+import com.example.demo.ExceptionHandler.ResourceNotFoundException;
 import com.example.demo.Model.*;
 import com.example.demo.Repository.*;
 import com.example.demo.Service.Interface.MarkService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,13 +40,17 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public void deleteMark(long markId) {
-        markRepo.deleteById(markId);
+    public void deleteMark(long id) {
+        Optional<Mark> mark = markRepo.findById(id);
+        if(!mark.isPresent()){
+            throw new ResourceNotFoundException("mark not found with id: " + id);
+        }
+        markRepo.deleteById(id);
     }
 
     @Override
-    public void updateMark(@Valid Mark newMark, long markId) {
-        Optional<Mark> mark = markRepo.findById(markId);
+    public void updateMark(@Valid Mark newMark, long id) {
+        Optional<Mark> mark = markRepo.findById(id);
         if (mark.isPresent()){
             Mark existingMark = mark.get();
             existingMark.setMarks(newMark.getMarks());
@@ -52,13 +58,16 @@ public class MarkServiceImpl implements MarkService {
             existingMark.setSubject(newMark.getSubject());
             markRepo.save(existingMark);
         }
+        else{
+            throw new ResourceNotFoundException("mark not found with id: " + id);
+        }
     }
 
     @Override
     public StudentMarksDTO getMarksByStudentName(String studentName) {
         Student student= studentRepo.findByStudentName(studentName);
         if (student == null) {
-            throw new IllegalArgumentException("Student with name " + studentName + " not found");
+            throw new ResourceNotFoundException("Student with name " + studentName + " not found");
         }
         List<Mark> marks = markRepo.findByStudentId(student.getId());
 
@@ -87,27 +96,31 @@ public class MarkServiceImpl implements MarkService {
     public List<MarkDTO> getMarksBySubjectAndClass(long subjectId, long classId) {
 
         List<StudentClass> studentClasses = studentClassRepo.findByBaseClassId(classId);
-        List<Long> studentIds = studentClasses.stream()
-                .map(StudentClass::getStudent)
-                .map(Student::getId)
-                .collect(Collectors.toList());
-        List<Mark> marks = markRepo.findBySubjectIdAndStudentIdIn(subjectId, studentIds);
+        if(studentClasses.isEmpty()){
+            throw new ResourceNotFoundException("studentClasses with name " + classId + " not found");
+        }
 
-        // Step 3: Map Mark entities to MarkDTO objects
-        List<MarkDTO> markDTOs = marks.stream()
+            List<Long> studentIds = studentClasses.stream()
+                    .map(StudentClass::getStudent)
+                    .map(Student::getId)
+                    .collect(Collectors.toList());
+            List<Mark> marks = markRepo.findBySubjectIdAndStudentIdIn(subjectId, studentIds);
+
+            // Step 3: Map Mark entities to MarkDTO objects
+            List<MarkDTO> markDTOs = marks.stream()
 //                .map(mark -> new MarkDTO(mark.getStudent().getStudentName(), mark.getMarks(), mark.getSubject().getSubjectName()))
 //                .collect(Collectors.toList());
-                .map(mark -> {
-                    String className = studentClasses.stream()
-                            .filter(sc -> sc.getStudent().getId().equals(mark.getStudent().getId()))
-                            .findFirst()
-                            .map(sc -> sc.getBaseClass().getClassName())
-                            .orElse("");
-                    return new MarkDTO(mark.getSubject().getSubjectName(),mark.getStudent().getStudentName(), className, mark.getMarks());
-                })
-                .collect(Collectors.toList());
+                    .map(mark -> {
+                        String className = studentClasses.stream()
+                                .filter(sc -> sc.getStudent().getId().equals(mark.getStudent().getId()))
+                                .findFirst()
+                                .map(sc -> sc.getBaseClass().getClassName())
+                                .orElse("");
+                        return new MarkDTO(mark.getSubject().getSubjectName(), mark.getStudent().getStudentName(), className, mark.getMarks());
+                    })
+                    .collect(Collectors.toList());
 
-        return markDTOs;
+            return markDTOs;
 
     }
 
@@ -166,6 +179,9 @@ public class MarkServiceImpl implements MarkService {
     @Override
     public List<AllStudentsMarksDTO> getMarksByStudentClassId(long id){
         List<StudentClass> studentClassList = studentClassRepo.findByBaseClassId(id);
+        if(studentClassList.isEmpty()){
+            throw new ResourceNotFoundException("studentClass with name " + id + " not found");
+        }
         List<AllStudentsMarksDTO> allStudentsMarksDTOList = new ArrayList<>();
 
         for (StudentClass studentClass : studentClassList){

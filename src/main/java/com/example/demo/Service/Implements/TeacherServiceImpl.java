@@ -5,10 +5,11 @@ import com.example.demo.Model.Teacher;
 import com.example.demo.Repository.SubjectRepo;
 import com.example.demo.Repository.TeacherRepo;
 import com.example.demo.Service.Interface.TeacherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
